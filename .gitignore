@@ -62,3 +62,6 @@ typings/
 
 # project files
 .idea
+
+# built files
+/index.js

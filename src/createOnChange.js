@@ -13,6 +13,12 @@
  * @returns {onChange} Takes a change event and uses it to update the form state
  * @alias module:createOnChange
  */
-const createOnChange = (updateData) => ({ target: { name, value } }) => updateData(name, value);
+const createOnChange = (updateData) => ({ target: { name, value, type, checked } }) => {
+	if (type === 'radio' || type === 'checkbox') {
+		updateData(name, checked ? value : false);
+	} else {
+		updateData(name, value);
+	}
+};
 
 export default createOnChange;

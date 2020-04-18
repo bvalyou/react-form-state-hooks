@@ -90,6 +90,7 @@ function reducer(prevState, action) {
  * @typedef listFormState
  * @property {Array<listFormEntry>} entries - Entries to render your form sections/fields
  * @property {Array<*>} data - The current managed list values
+ * @property {Object<*>} mappedData - The internal object structure - works well for connecting a context built for formState
  * @property {updateData} updateData - Handles a change to a field in the data
  * @property {addEntry} addEntry - Adds a new entry to the list
  * @property {removeEntry} removeEntry - Removes an entry from the list
@@ -162,6 +163,7 @@ function useListFormState({ name, updateData: updateDataProp, data, initialData 
 					value: state.data[key],
 				})),
 			data: unmapData(state.data, state.indexMap),
+			mappedData: state.data,
 			updateData,
 			addEntry,
 			removeEntry,

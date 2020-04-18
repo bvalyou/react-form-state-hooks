@@ -11,6 +11,11 @@ describe('useListFormState', () => {
 
 		expect(result.current).toEqual({
 			data,
+			mappedData: {
+				'foo-0': 1,
+				'foo-1': 2,
+				'foo-2': 3,
+			},
 			entries: [
 				{
 					name: 'foo-0',
@@ -39,6 +44,7 @@ describe('useListFormState', () => {
 
 		expect(result.current).toEqual({
 			data: [],
+			mappedData: {},
 			entries: [],
 			updateData: expect.any(Function),
 			addEntry: expect.any(Function),
@@ -55,6 +61,9 @@ describe('useListFormState', () => {
 
 		expect(result.current).toEqual({
 			data: ['bar'],
+			mappedData: {
+				'foo-0': 'bar',
+			},
 			entries: [
 				{
 					name: 'foo-0',
@@ -77,6 +86,9 @@ describe('useListFormState', () => {
 
 		expect(result.current).toEqual({
 			data: ['bar'],
+			mappedData: {
+				'foo-0': 'bar',
+			},
 			entries: [
 				{
 					name: 'foo-0',
@@ -104,6 +116,11 @@ describe('useListFormState', () => {
 
 		expect(result.current).toEqual({
 			data: ['bar', 'new value', 'baz'],
+			mappedData: {
+				'foo-0': 'bar',
+				'foo-1': 'baz',
+				'foo-2': 'new value',
+			},
 			entries: [
 				{
 					name: 'foo-0',
@@ -138,6 +155,9 @@ describe('useListFormState', () => {
 
 		expect(result.current).toEqual({
 			data: ['baz'],
+			mappedData: {
+				'foo-1': 'baz',
+			},
 			entries: [
 				{
 					name: 'foo-1',
@@ -164,6 +184,9 @@ describe('useListFormState', () => {
 
 		expect(result.current).toEqual({
 			data: ['bar'],
+			mappedData: {
+				'foo-0': 'bar',
+			},
 			entries: [
 				{
 					name: 'foo-0',

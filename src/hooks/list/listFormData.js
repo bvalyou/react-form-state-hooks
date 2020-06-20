@@ -59,7 +59,8 @@ export const unmapData = (objectData, indexMapping) =>
 		}, []);
 
 export const addFieldToIndexMapping = (name, indexMapping, index) => {
-	const maxIndex = Object.values(indexMapping).sort().pop();
+	const indices = Object.values(indexMapping);
+	const maxIndex = indices.length ? Math.max(...indices) : -1;
 	const newName = `${name}-${unique++}`;
 
 	return [
@@ -73,7 +74,7 @@ export const addFieldToIndexMapping = (name, indexMapping, index) => {
 			  )
 			: {
 					...indexMapping,
-					[newName]: (maxIndex || maxIndex === 0 ? maxIndex : -1) + 1,
+					[newName]: maxIndex + 1,
 			  },
 		newName,
 	];

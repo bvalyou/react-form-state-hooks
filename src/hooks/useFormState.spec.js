@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { useFormState } from './index';
+import { useFormState } from '../index';
 
 describe('useFormState', () => {
 	it('should return data, and updateData', () => {
@@ -47,9 +47,11 @@ describe('useFormState', () => {
 
 		expect(updateData).toHaveBeenCalledWith('foo', {});
 
+		updateData.mockClear();
+
 		rerender({ data: { bar: 'baz' } });
 
-		expect(updateData).toHaveBeenCalledWith('foo', { bar: 'baz' });
+		expect(updateData).not.toHaveBeenCalled();
 
 		expect(result.current.data).toEqual({ bar: 'baz' });
 	});

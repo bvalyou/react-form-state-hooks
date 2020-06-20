@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
 	stories: ['../stories/**/*.stories.js'],
 	addons: ['@storybook/addon-actions', '@storybook/addon-links'],
@@ -5,7 +7,10 @@ module.exports = {
 		...config,
 		resolve: {
 			...config.resolve,
-			alias: { 'react-form-state-hooks': '../src' },
+			alias: {
+				...config.resolve.alias,
+				'react-form-state-hooks': path.resolve(__dirname, '../src'),
+			},
 		},
 	}),
 };

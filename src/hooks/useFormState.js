@@ -15,12 +15,17 @@ function reducer(prevState, action) {
 	switch (action.type) {
 		case 'update': {
 			return {
-				...prevState,
-				[action.name]: action.value,
+				data: {
+					...prevState.data,
+					[action.name]: action.value,
+				},
 			};
 		}
 		case 'reset': {
-			return action.data;
+			return {
+				data: action.data,
+				cause: 'reset',
+			};
 		}
 	}
 }
@@ -53,7 +58,7 @@ function useFormState({
 	updateData: updateDataProp,
 	data: dataProp,
 } = {}) {
-	const [data, dispatch] = useReducer(reducer, initialData);
+	const [state, dispatch] = useReducer(reducer, { data: initialData });
 
 	useEffect(() => {
 		if (dataProp) {
@@ -62,19 +67,19 @@ function useFormState({
 	}, [dataProp]);
 
 	useEffect(() => {
-		if (updateDataProp) {
-			updateDataProp(nameProp, data);
+		if (updateDataProp && state.cause !== 'reset') {
+			updateDataProp(nameProp, state.data);
 		}
-	}, [updateDataProp, nameProp, data]);
+	}, [updateDataProp, nameProp, state]);
 
 	const updateData = useCallback((name, value) => dispatch({ type: 'update', name, value }), []);
 
 	return useMemo(
 		() => ({
-			data,
+			data: state.data,
 			updateData,
 		}),
-		[data, updateData]
+		[state.data, updateData]
 	);
 }
 

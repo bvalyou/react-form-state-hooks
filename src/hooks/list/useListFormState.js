@@ -17,16 +17,18 @@ import {
  * Creates the initial state for {@link module:useListFormState}
  * @param {string} name - The key in the parent state object where this list will go
  * @param {Array<*>} [initialData] - The initial values the list contains
+ * @param {Array<*>} [data] - The current list values
  * @returns {{
  *   data: Object<*>, indexMap: Object<number>
  * }}
  * @private
  */
-function init({ name, initialData }) {
-	const indexMap = createIndexMapping(name, initialData);
+function init({ name, initialData, data }) {
+	const indexMap = createIndexMapping(name, data || initialData);
+
 	return {
 		indexMap,
-		data: mapData(initialData, indexMap),
+		data: mapData(data || initialData, indexMap),
 	};
 }
 
@@ -77,10 +79,18 @@ function reducer(prevState, action) {
 			};
 		}
 		case 'reset': {
+			const prevArray = unmapData(prevState.data, prevState.indexMap);
+
+			if (action.data.length && action.data.every((value, index) => value === prevArray[index])) {
+				return prevState;
+			}
+
 			const indexMap = updateIndexMapping(action.name, prevState.indexMap, action.data);
+
 			return {
 				indexMap,
 				data: mapData(action.data, indexMap),
+				cause: 'reset',
 			};
 		}
 	}
@@ -131,7 +141,7 @@ function reducer(prevState, action) {
  * @alias module:useListFormState
  */
 function useListFormState({ name, updateData: updateDataProp, data, initialData = [] }) {
-	const [state, dispatch] = useReducer(reducer, { name, initialData }, init);
+	const [state, dispatch] = useReducer(reducer, { name, initialData, data }, init);
 
 	useEffect(() => {
 		if (data) {
@@ -140,7 +150,7 @@ function useListFormState({ name, updateData: updateDataProp, data, initialData 
 	}, [data, name]);
 
 	useEffect(() => {
-		if (updateDataProp) {
+		if (updateDataProp && state.cause !== 'reset') {
 			updateDataProp(name, unmapData(state.data, state.indexMap));
 		}
 	}, [updateDataProp, name, state]);

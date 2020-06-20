@@ -2,6 +2,7 @@ module.exports = {
 	env: {
 		browser: true,
 	},
+	parser: 'babel-eslint',
 	parserOptions: {
 		ecmaVersion: 2020,
 		sourceType: 'module',
@@ -30,9 +31,15 @@ module.exports = {
 	},
 	overrides: [
 		{
-			files: ['*.spec.js*'],
+			files: ['*.spec.js'],
 			env: {
 				jest: true,
+			},
+		},
+		{
+			files: ['./stories/**/*.js'],
+			rules: {
+				'react/prop-types': 'off',
 			},
 		},
 	],

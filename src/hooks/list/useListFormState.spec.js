@@ -178,7 +178,7 @@ describe('useListFormState', () => {
 			{ initialProps: { data: ['foo', 'bar'] } }
 		);
 
-		expect(updateData).toHaveBeenCalledWith('foo', []);
+		expect(updateData).toHaveBeenCalledWith('foo', ['foo', 'bar']);
 
 		rerender({ data: ['bar'] });
 
@@ -198,6 +198,23 @@ describe('useListFormState', () => {
 			addEntry: expect.any(Function),
 			removeEntry: expect.any(Function),
 		});
+	});
+
+	it('should not update its data if its new data is shallow equal with the old data', () => {
+		const updateData = jest.fn();
+		const { result, rerender } = renderHook(
+			({ data }) => useListFormState({ name: 'foo', updateData, data }),
+			{ initialProps: { data: ['foo', 'bar'] } }
+		);
+
+		expect(updateData).toHaveBeenCalledWith('foo', ['foo', 'bar']);
+
+		const currentData = result.current.data;
+
+		rerender({ data: ['foo', 'bar'] });
+
+		// explicit toBe, not toEqual, to ensure the value is actually the same as before
+		expect(result.current.data).toBe(currentData);
 	});
 
 	it.each([

@@ -3,9 +3,9 @@
   <a href="https://www.npmjs.com/package/react-form-state-hooks" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/react-form-state-hooks.svg">
   </a>
-	<a href="https://codecov.io/gh/bvalyou/react-form-state-hooks">
-		<img alt="Coverage" src="https://codecov.io/gh/bvalyou/react-form-state-hooks/branch/master/graph/badge.svg" />
-	</a>
+  <a href="https://codecov.io/gh/bvalyou/react-form-state-hooks">
+    <img alt="Coverage" src="https://codecov.io/gh/bvalyou/react-form-state-hooks/branch/master/graph/badge.svg" />
+  </a>
   <a href="https://github.com/bvalyou/react-form-state-hooks#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -27,51 +27,92 @@
 npm install react-form-state-hooks
 ```
 
-## 📚 API Reference
+## Browser Compatibility
+
+This library uses ES2020 methods, so for developers supporting legacy browsers or server-side JS environments,
+polyfills will be needed.
+
+## Performance Considerations
+
+This is designed for controlled forms, which solve some problems but come with some performance challenges when managed
+centrally. To avoid this, it's recommended to add basic memoization to all inputs being controlled, as well as any
+nested form sections.
+
+## 🚀 Usage
+
+There are currently two pieces available, the main file which provides the hooks and utilities,
+and a secondary file, context, that provides utilities for using form state propagation through
+React's Context feature.
+
+### useFormState
 
 ```js
 import { useFormState, useListFormState, createOnChange } from 'react-form-state-hooks';
 ```
 
+`useFormState` is the primary hook for managing a form's state. Alone it isn't very powerful, but it
+has a recursive interface that allows it to provide state management for complex form structures.
+Used with a React Context (and the Context Utilities below) it provides robust logic with a minimum
+of boilerplate.
+
+There is a simple example of this in
+<a href="https://github.com/bvalyou/react-form-state-hooks/blob/master/stories/basicFormExample/BasicForm.js">the examples</a>.
+
+### useListFormState
+
+`useListFormState` takes an array of data and exposes it with a similar interface as `useFormState`.
+It supports simple add/remove and with proper memoization can prevent unnecessary renders for large
+lists.
+
+There is a simple example of this in
+<a href="https://github.com/bvalyou/react-form-state-hooks/blob/master/stories/listFormExample/FormWithList.js">the examples</a>.
+
+### Context Utilities
+
+```js
+import { FormStateContext, connectFormStateInput } from 'react-form-state-hooks/context';
+```
+
+`FormStateContext` is a React Context for providing the current `formState` or `listFormState` to a set of components.
+
+```jsx harmony
+<FormStateContext.Provider value={useListFormState()}>
+	...
+</FormStateContext.Provider>
+```
+
+Apart from assisting with the prop-drilling issue, this context also allows you to reduce the boilerplate for writing
+your form, using the provided `connectFormStateInput` higher-order component.
+
+```jsx harmony
+const ConnectedInput = connectFormStateInput('input');
+
+<FormStateContext.Provider value={useListFormState()}>
+	<label htmlFor="foo">Foo</label>
+	<ConnectedInput id="foo" name="foo" />
+</FormStateContext.Provider>
+```
+
+`connectFormStateInput` links the provided component to `FormStateContext`, and will derive the `value` (or `checked`)
+prop, and bind the `onChange` callback.
+
+You can see these utilities in action in the examples
+<a href="https://github.com/bvalyou/react-form-state-hooks/blob/master/stories/contextExample/ContextForm.js">the examples</a>.
+
+## 📚 API Reference
+
 ## Modules
 
 <dl>
-<dt><a href="#module_createOnChange">createOnChange</a></dt>
-<dd></dd>
 <dt><a href="#module_useFormState">useFormState</a></dt>
 <dd></dd>
 <dt><a href="#module_useListFormState">useListFormState</a></dt>
 <dd></dd>
+<dt><a href="#module_connectFormStateInput">connectFormStateInput</a></dt>
+<dd></dd>
+<dt><a href="#module_createOnChange">createOnChange</a></dt>
+<dd></dd>
 </dl>
-
-<a name="module_createOnChange"></a>
-
-## createOnChange
-
-* [createOnChange](#module_createOnChange)
-    * [createOnChange(updateData)](#exp_module_createOnChange--createOnChange) ⇒ <code>onChange</code> ⏏
-        * [~onChange](#module_createOnChange--createOnChange..onChange) : <code>function</code>
-
-<a name="exp_module_createOnChange--createOnChange"></a>
-
-### createOnChange(updateData) ⇒ <code>onChange</code> ⏏
-Creates an onChange callback for an HTML input which is bound to the updateData callback
-
-**Kind**: Exported function  
-**Returns**: <code>onChange</code> - Takes a change event and uses it to update the form state  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| updateData | <code>updateData</code> | Handles a change to a field in the form state |
-
-<a name="module_createOnChange--createOnChange..onChange"></a>
-
-#### createOnChange~onChange : <code>function</code>
-**Kind**: inner typedef of [<code>createOnChange</code>](#exp_module_createOnChange--createOnChange)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| event | <code>React.ChangeEvent</code> | The triggered DOM event |
 
 <a name="module_useFormState"></a>
 
@@ -157,6 +198,7 @@ Manages state for a list-shaped form
 | --- | --- | --- |
 | entries | <code>Array.&lt;listFormEntry&gt;</code> | Entries to render your form sections/fields |
 | data | <code>Array.&lt;\*&gt;</code> | The current managed list values |
+| mappedData | <code>Object.&lt;\*&gt;</code> | The internal object structure - works well for connecting a context built for formState |
 | updateData | <code>updateData</code> | Handles a change to a field in the data |
 | addEntry | <code>addEntry</code> | Adds a new entry to the list |
 | removeEntry | <code>removeEntry</code> | Removes an entry from the list |
@@ -202,6 +244,76 @@ Manages state for a list-shaped form
 | --- | --- | --- |
 | name | <code>string</code> | The name of the entry from `entries` |
 
+<a name="module_connectFormStateInput"></a>
+
+## connectFormStateInput
+
+* [connectFormStateInput](#module_connectFormStateInput)
+    * [connectFormStateInput(InputComponent, [Context])](#exp_module_connectFormStateInput--connectFormStateInput) ⇒ <code>function</code> ⏏
+        * [~InputComponent](#module_connectFormStateInput--connectFormStateInput..InputComponent) : <code>string</code> \| <code>InputComponentFunc</code>
+        * [~InputComponentFunc](#module_connectFormStateInput--connectFormStateInput..InputComponentFunc) : <code>function</code>
+
+<a name="exp_module_connectFormStateInput--connectFormStateInput"></a>
+
+### connectFormStateInput(InputComponent, [Context]) ⇒ <code>function</code> ⏏
+Connects a form control to the FormStateContext
+
+**Kind**: Exported function  
+**Returns**: <code>function</code> - The component with the InputComponent props applied  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| InputComponent | <code>InputComponent</code> |  | A React input or component matching the input API |
+| [Context] | <code>React.Context</code> | <code>FormStateContext</code> | A React context that will contain formState |
+
+<a name="module_connectFormStateInput--connectFormStateInput..InputComponent"></a>
+
+#### connectFormStateInput~InputComponent : <code>string</code> \| <code>InputComponentFunc</code>
+**Kind**: inner typedef of [<code>connectFormStateInput</code>](#exp_module_connectFormStateInput--connectFormStateInput)  
+<a name="module_connectFormStateInput--connectFormStateInput..InputComponentFunc"></a>
+
+#### connectFormStateInput~InputComponentFunc : <code>function</code>
+**Kind**: inner typedef of [<code>connectFormStateInput</code>](#exp_module_connectFormStateInput--connectFormStateInput)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>Object</code> | Standard React props |
+| props.name | <code>string</code> | HTML input name - used to link to the context |
+| props.onChange | <code>function</code> | HTML input change handler |
+| [props.type] | <code>string</code> | HTML input type - used for checkbox/radio detection |
+| [props.value] | <code>string</code> | HTML input value from the context |
+| [props.checked] | <code>boolean</code> | HTML input checked attribute for checkbox/radio |
+
+<a name="module_createOnChange"></a>
+
+## createOnChange
+
+* [createOnChange](#module_createOnChange)
+    * [createOnChange(updateData, onChange)](#exp_module_createOnChange--createOnChange) ⇒ <code>onChange</code> ⏏
+        * [~onChange](#module_createOnChange--createOnChange..onChange) : <code>function</code>
+
+<a name="exp_module_createOnChange--createOnChange"></a>
+
+### createOnChange(updateData, onChange) ⇒ <code>onChange</code> ⏏
+Creates an onChange callback for an HTML input which is bound to the updateData callback
+
+**Kind**: Exported function  
+**Returns**: <code>onChange</code> - Takes a change event and uses it to update the form state  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| updateData | <code>updateData</code> | Handles a change to a field in the form state |
+| onChange | <code>function</code> | Pass-through of HTML event handler |
+
+<a name="module_createOnChange--createOnChange..onChange"></a>
+
+#### createOnChange~onChange : <code>function</code>
+**Kind**: inner typedef of [<code>createOnChange</code>](#exp_module_createOnChange--createOnChange)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| event | <code>React.ChangeEvent</code> | The triggered DOM event |
+
 
 ## Run tests
 
@@ -217,9 +329,7 @@ npm test
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!
-
-Feel free to check [issues page](https://github.com/bvalyou/react-form-state-hooks/issues). You can also take a look at the [contributing guide](https://github.com/bvalyou/react-form-state-hooks/blob/master/CONTRIBUTING.md).
+Contributions, issues, and feature requests are welcome!
 
 ## Show your support
 

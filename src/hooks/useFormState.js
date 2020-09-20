@@ -58,7 +58,7 @@ function useFormState({
 	updateData: updateDataProp,
 	data: dataProp,
 } = {}) {
-	const [state, dispatch] = useReducer(reducer, { data: initialData });
+	const [state, dispatch] = useReducer(reducer, { data: dataProp || initialData });
 
 	useEffect(() => {
 		if (dataProp) {

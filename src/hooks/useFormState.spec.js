@@ -55,4 +55,16 @@ describe('useFormState', () => {
 
 		expect(result.current.data).toEqual({ bar: 'baz' });
 	});
+
+	it('should properly sync its state to its parent on mount', () => {
+		const { result } = renderHook(() => {
+			const parent = useFormState({ initialData: { foo: { bar: 'baz' } } });
+			const child = useFormState({ ...parent, name: 'foo', data: parent.data.foo });
+
+			return { parent, child };
+		});
+
+		expect(result.current.parent.data).toEqual({ foo: { bar: 'baz' } });
+		expect(result.current.child.data).toEqual({ bar: 'baz' });
+	});
 });

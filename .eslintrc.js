@@ -2,13 +2,18 @@ module.exports = {
 	env: {
 		browser: true,
 	},
-	parser: 'babel-eslint',
+	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		ecmaVersion: 2020,
 		sourceType: 'module',
 	},
-	extends: ['eslint:recommended', 'plugin:react/recommended'],
-	plugins: ['prettier', 'react-hooks'],
+	extends: [
+		'eslint:recommended',
+		'plugin:react/recommended',
+		'plugin:@typescript-eslint/eslint-recommended',
+		'plugin:@typescript-eslint/recommended',
+	],
+	plugins: ['prettier', 'react-hooks', '@typescript-eslint'],
 	rules: {
 		'prettier/prettier': 'warn',
 		'react-hooks/rules-of-hooks': 'error',
@@ -31,13 +36,13 @@ module.exports = {
 	},
 	overrides: [
 		{
-			files: ['*.spec.js'],
+			files: ['*.spec.*'],
 			env: {
 				jest: true,
 			},
 		},
 		{
-			files: ['./stories/**/*.js'],
+			files: ['./stories/**/*.*'],
 			rules: {
 				'react/prop-types': 'off',
 			},

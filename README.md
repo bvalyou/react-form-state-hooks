@@ -56,7 +56,7 @@ Used with a React Context (and the Context Utilities below) it provides robust l
 of boilerplate.
 
 There is a simple example of this in
-<a href="https://github.com/bvalyou/react-form-state-hooks/blob/master/stories/basicFormExample/BasicForm.js">the examples</a>.
+<a href="https://github.com/bvalyou/react-form-state-hooks/blob/master/stories/basicFormExample/BasicForm.tsx">the examples</a>.
 
 ### useListFormState
 
@@ -65,7 +65,7 @@ It supports simple add/remove and with proper memoization can prevent unnecessar
 lists.
 
 There is a simple example of this in
-<a href="https://github.com/bvalyou/react-form-state-hooks/blob/master/stories/listFormExample/FormWithList.js">the examples</a>.
+<a href="https://github.com/bvalyou/react-form-state-hooks/blob/master/stories/listFormExample/FormWithList.tsx">the examples</a>.
 
 ### Context Utilities
 
@@ -97,7 +97,7 @@ const ConnectedInput = connectFormStateInput('input');
 prop, and bind the `onChange` callback.
 
 You can see these utilities in action in the examples
-<a href="https://github.com/bvalyou/react-form-state-hooks/blob/master/stories/contextExample/ContextForm.js">the examples</a>.
+<a href="https://github.com/bvalyou/react-form-state-hooks/blob/master/stories/contextExample/ContextForm.tsx">the examples</a>.
 
 ## 📚 API Reference
 

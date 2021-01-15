@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react';
-import { useFormState, createOnChange } from 'react-form-state-hooks/controlled';
 import { Button, Grid, TextField } from '@material-ui/core';
+import React, { useCallback } from 'react';
+import { createOnChange, useFormState } from 'react-form-state-hooks/controlled';
+import type { Data } from 'react-form-state-hooks/controlled/useFormState.types';
+import useStyles from './BasicForm.styles';
 import myService from './myService';
 import PhoneSection from './PhoneSection';
-import useStyles from './BasicForm.styles';
-import { Data } from 'react-form-state-hooks/controlled/useFormState.types';
 
 const MyForm = (): React.ReactElement => {
 	const classes = useStyles();

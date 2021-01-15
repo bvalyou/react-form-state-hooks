@@ -1,40 +1,57 @@
 import { useEffect, useMemo, useReducer, useRef } from 'react';
+import { compareEntries, unmapData } from '../utils/listFormData';
+import { FormState } from './useFormState.types';
+import { init, reducer } from './useListFormState.reducer';
 import {
 	Entry,
 	ListActionType,
 	ListFormState,
 	UseListFormStateOptions,
 } from './useListFormState.types';
-import { init, reducer } from './useListFormState.reducer';
-import { compareEntries, unmapData } from '../utils/listFormData';
-import { FormState } from './useFormState.types';
 
 export function isListFormState(
 	formState: FormState | ListFormState | null
 ): formState is ListFormState {
-	return !!(formState && (formState as ListFormState).mappedData);
+	return !!(formState && (formState as ListFormState).entries);
 }
 
 export default function useListFormState(options: UseListFormStateOptions = {}): ListFormState {
-	const { name } = options;
-	const [{ indexMap, cause, newName, newValue, initialFormData }, dispatch] = useReducer(
-		reducer,
-		options,
-		init
-	);
+	const { name, merge } = options;
+	const [
+		{ indexMap, cause, newName, newValue, initialFormData, removedName },
+		dispatch,
+	] = useReducer(reducer, options, init);
 	const formData = useRef(initialFormData || {});
 
 	useEffect(() => {
 		if (cause === ListActionType.Add && newName) {
 			formData.current[newName] = newValue;
+
+			if (name && merge) {
+				merge({ [name]: unmapData(formData.current, indexMap) });
+			}
 		}
-	}, [cause, newName, newValue]);
+	}, [name, indexMap, merge, cause, newName, newValue]);
+
+	useEffect(() => {
+		if (cause === ListActionType.Remove && removedName) {
+			delete formData.current[removedName];
+
+			if (name && merge) {
+				merge({ [name]: unmapData(formData.current, indexMap) });
+			}
+		}
+	});
 
 	useEffect(() => {
 		if (cause === ListActionType.Reset && initialFormData) {
 			formData.current = initialFormData;
+
+			if (name && merge) {
+				merge({ [name]: unmapData(formData.current, indexMap) });
+			}
 		}
-	}, [cause, initialFormData]);
+	}, [name, merge, indexMap, cause, initialFormData]);
 
 	return useMemo(
 		(): ListFormState => ({
@@ -47,7 +64,6 @@ export default function useListFormState(options: UseListFormStateOptions = {}):
 						initialValue: formData.current[name],
 					})
 				),
-			mappedData: formData.current,
 			addEntry: (value, index) => {
 				dispatch({ type: ListActionType.Add, name, value, index });
 			},
@@ -61,14 +77,18 @@ export default function useListFormState(options: UseListFormStateOptions = {}):
 			merge: (data) => {
 				formData.current = { ...formData.current, ...data };
 
+				if (name && merge) {
+					merge({ [name]: unmapData(formData.current, indexMap) });
+				}
+
 				return formData.current;
 			},
-			reset: (data: unknown[]) => {
+			reset: (data) => {
 				dispatch({ type: ListActionType.Reset, data });
 
-				return data;
+				return data || [];
 			},
 		}),
-		[indexMap, name]
+		[indexMap, merge, name]
 	);
 }

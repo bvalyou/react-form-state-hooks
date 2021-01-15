@@ -2,17 +2,21 @@ import type { IndexMapping } from '../utils/listFormData.types';
 import type { Data, Merge } from './useFormState.types';
 
 export enum ListActionType {
+	Init,
 	Add,
 	Remove,
 	Reset,
 }
 
+export type ListData<T = unknown> = T[];
+
 export interface InternalListFormState<T = unknown> {
 	indexMap: IndexMapping;
 	initialFormData?: Data<T>;
-	cause?: ListActionType;
+	cause: ListActionType;
 	newName?: string;
 	newValue?: unknown;
+	removedName?: string;
 }
 
 export interface ListFormStateAction<T = unknown> {
@@ -20,7 +24,7 @@ export interface ListFormStateAction<T = unknown> {
 	name?: string | undefined;
 	index?: number;
 	value?: unknown;
-	data?: T[];
+	data?: ListData<T>;
 }
 
 /**
@@ -32,7 +36,7 @@ export interface ListFormStateAction<T = unknown> {
 export interface UseListFormStateOptions<T = unknown> {
 	name?: string;
 	merge?: Merge;
-	initialData?: T[];
+	initialData?: ListData<T>;
 }
 
 /**
@@ -48,23 +52,21 @@ export type Entry<T = unknown> = {
 
 export type AddEntry<T = unknown> = (value: T, index?: number) => void;
 export type RemoveEntry = (name: string) => void;
-export type GetData<T = unknown> = () => { data: T[]; formData: Data<T> };
-export type Reset<T = unknown> = (data: T[]) => T[];
+export type GetListData<T = unknown> = () => { data: ListData<T>; formData: Data<T> };
+export type ResetList<T = unknown> = (data: ListData<T> | undefined) => ListData<T>;
 
 /**
  * @property entries - Entries to render your form sections/fields
  * @property data - The current managed list values
- * @property mappedData - The internal object structure - works well for connecting a context built for formState
  * @property updateData - Handles a change to a field in the data
  * @property addEntry - Adds a new entry to the list
  * @property removeEntry - Removes an entry from the list
  */
 export interface ListFormState<T = unknown> {
 	entries: Entry<T>[];
-	mappedData: Data<T>;
 	addEntry: AddEntry<T>;
 	removeEntry: RemoveEntry;
-	getData: GetData<T>;
+	getData: GetListData<T>;
 	merge: Merge<T>;
-	reset: Reset<T>;
+	reset: ResetList<T>;
 }

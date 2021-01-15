@@ -1,51 +1,11 @@
 import { useCallback, useEffect, useMemo, useReducer } from 'react';
-import {
-	FormState,
-	FormStateAction,
-	InternalFormState,
-	UseFormStateOptions,
-} from './useFormState.types';
+import { reducer } from './useFormState.reducer';
+import type { FormState, UseFormStateOptions } from './useFormState.types';
+import { FormStateActionType } from './useFormState.types';
 
 /**
  * @module useFormState
  */
-
-/**
- * Derives the next state using an action
- * @param {InternalFormState} prevState - The previous data for the form
- * @param {FormStateAction} action - Used to derive the next state
- * @returns {InternalFormState} - The new data
- * @private
- */
-function reducer(prevState: InternalFormState, action: FormStateAction): InternalFormState {
-	switch (action.type) {
-		case 'update': {
-			if (!action.name) {
-				throw new Error('action.name is required for action type update');
-			}
-
-			return {
-				data: {
-					...prevState.data,
-					[action.name]: action.value,
-				},
-			};
-		}
-		case 'reset': {
-			if (!action.data) {
-				throw new Error('action.data is required for action type reset');
-			}
-
-			return {
-				data: action.data,
-				cause: 'reset',
-			};
-		}
-		default: {
-			throw new Error('Unsupported action type');
-		}
-	}
-}
 
 /**
  * Manages state for an object-shaped form
@@ -63,21 +23,27 @@ function useFormState({
 	updateData: updateDataProp,
 	data: dataProp,
 }: UseFormStateOptions = {}): FormState {
-	const [state, dispatch] = useReducer(reducer, { data: dataProp || initialData });
+	const [state, dispatch] = useReducer(reducer, {
+		data: dataProp || initialData,
+		cause: FormStateActionType.Init,
+	});
 
 	useEffect(() => {
 		if (dataProp) {
-			dispatch({ type: 'reset', data: dataProp });
+			dispatch({ type: FormStateActionType.Reset, data: dataProp });
 		}
 	}, [dataProp]);
 
 	useEffect(() => {
-		if (updateDataProp && nameProp && state.cause !== 'reset') {
+		if (updateDataProp && nameProp && state.cause !== FormStateActionType.Reset) {
 			updateDataProp(nameProp, state.data);
 		}
 	}, [updateDataProp, nameProp, state]);
 
-	const updateData = useCallback((name, value) => dispatch({ type: 'update', name, value }), []);
+	const updateData = useCallback(
+		(name, value) => dispatch({ type: FormStateActionType.Update, name, value }),
+		[]
+	);
 
 	return useMemo(
 		() => ({

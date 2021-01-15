@@ -1,17 +1,17 @@
-import React, { useCallback } from 'react';
-import { useFormState, createOnChange } from 'react-form-state-hooks/semiControlled';
 import { FormControl, FormLabel, Grid, TextField } from '@material-ui/core';
-import phoneCountryCodes from './phoneCountryCodes';
+import React, { useCallback } from 'react';
+import { createOnChange, useFormState } from 'react-form-state-hooks/semiControlled';
 import useStyles from './BasicForm.styles';
+import phoneCountryCodes from './phoneCountryCodes';
 import type { PhoneSectionProps } from './PhoneSection.types';
 
 const PhoneSection = ({
 	name,
-	getData: getDataProp,
+	initialData,
 	merge: mergeProp,
 }: PhoneSectionProps): React.ReactElement => {
 	const classes = useStyles();
-	const { getData, merge } = useFormState({ name, initialData: getDataProp(), merge: mergeProp });
+	const { getData, merge } = useFormState({ name, initialData, merge: mergeProp });
 	const onChange = useCallback(createOnChange(merge), [merge]);
 
 	return (

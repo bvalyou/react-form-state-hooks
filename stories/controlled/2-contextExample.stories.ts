@@ -1,5 +1,5 @@
 export default {
-	title: 'Context Examples',
+	title: 'Controlled Context Examples',
 };
 
 export { default as ContextForm } from './contextExample/ContextForm';

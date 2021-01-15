@@ -1,8 +1,8 @@
 import React, { useContext, useMemo } from 'react';
 import createOnChange from '../createOnChange';
-import FormStateContext from './FormStateContext';
 import { isListFormState } from '../list/useListFormState';
-import type { InputProps, InputComponent } from './connectFormStateInput.types';
+import type { InputComponent, InputProps } from './connectFormStateInput.types';
+import FormStateContext from './FormStateContext';
 
 /**
  * @module connectFormStateInput

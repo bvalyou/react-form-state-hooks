@@ -1,9 +1,9 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { useListFormState } from 'react-form-state-hooks/controlled';
+import { Data } from 'react-form-state-hooks/controlled/useFormState.types';
 import PhoneEntry from './PhoneEntry';
 import { PhoneSectionProps } from './PhoneSection.types';
-import { Data } from 'react-form-state-hooks/controlled/useFormState.types';
 
 const PhoneSection = ({
 	name,
@@ -29,7 +29,7 @@ const PhoneSection = ({
 					/>
 				);
 			})}
-			<Button onClick={() => addEntry({})}>+</Button>
+			<Button onClick={() => addEntry({ countryCode: '', number: '' })}>+</Button>
 		</>
 	);
 };

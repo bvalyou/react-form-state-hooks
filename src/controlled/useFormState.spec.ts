@@ -1,6 +1,8 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { useFormState } from '../index';
+import { reducer } from './useFormState.reducer';
 import type { Data } from './useFormState.types';
+import { FormStateActionType } from './useFormState.types';
 
 describe('useFormState', () => {
 	it('should return data, and updateData', () => {
@@ -67,5 +69,25 @@ describe('useFormState', () => {
 
 		expect(result.current.parent.data).toEqual({ foo: { bar: 'baz' } });
 		expect(result.current.child.data).toEqual({ bar: 'baz' });
+	});
+
+	describe('reducer failures', () => {
+		it('should throw if called with FormStateActionType.Init', () => {
+			expect(() =>
+				reducer({ cause: FormStateActionType.Init, data: {} }, { type: FormStateActionType.Init })
+			).toThrow();
+		});
+
+		it('should throw if called with FormStateActionType.Update and no name', () => {
+			expect(() =>
+				reducer({ cause: FormStateActionType.Init, data: {} }, { type: FormStateActionType.Update })
+			).toThrow();
+		});
+
+		it('should throw if called with FormStateActionType.Reset and no data', () => {
+			expect(() =>
+				reducer({ cause: FormStateActionType.Init, data: {} }, { type: FormStateActionType.Reset })
+			).toThrow();
+		});
 	});
 });

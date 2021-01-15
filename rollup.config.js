@@ -2,14 +2,12 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import pkg from './package.json';
 
 const plugins = [
 	typescript(),
-	babel({
-		exclude: 'node_modules/**', // only transpile our source code
-	}),
+	babel({ babelHelpers: 'bundled', extensions: ['.ts', '.js', '.tsx'] }),
 	resolve(),
 	commonjs(),
 ];
@@ -26,9 +24,42 @@ export default [
 		external,
 	},
 	{
-		input: 'src/context/index.ts',
+		input: 'src/controlled/index.ts',
 		output: {
-			file: 'context.js',
+			file: 'controlled/index.js',
+			format: 'cjs',
+		},
+		plugins,
+		external,
+	},
+	{
+		input: 'src/controlled/context/index.ts',
+		output: [
+			{
+				file: 'context.js',
+				format: 'cjs',
+			},
+			{
+				file: 'controlled/context.js',
+				format: 'cjs',
+			},
+		],
+		plugins,
+		external,
+	},
+	{
+		input: 'src/semiControlled/index.ts',
+		output: {
+			file: 'semiControlled/index.js',
+			format: 'cjs',
+		},
+		plugins,
+		external,
+	},
+	{
+		input: 'src/semiControlled/context/index.ts',
+		output: {
+			file: 'semiControlled/context.js',
 			format: 'cjs',
 		},
 		plugins,

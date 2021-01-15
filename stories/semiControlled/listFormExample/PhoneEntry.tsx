@@ -1,13 +1,19 @@
 import { Button, FormControl, FormLabel, Grid, TextField } from '@material-ui/core';
 import React, { useCallback } from 'react';
-import { createOnChange, useFormState } from 'react-form-state-hooks/controlled';
+import { createOnChange, useFormState } from 'react-form-state-hooks/semiControlled';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import phoneCountryCodes from '../basicFormExample/phoneCountryCodes';
+import { PhoneEntryProps } from './PhoneEntry.types';
 
-const PhoneEntry = ({ name, data: dataProp, updateData: updateDataProp, removeEntry }) => {
+const PhoneEntry = ({
+	name,
+	initialValue,
+	merge: mergeProp,
+	removeEntry,
+}: PhoneEntryProps): React.ReactElement => {
 	const classes = useStyles();
-	const { data, updateData } = useFormState({ name, data: dataProp, updateData: updateDataProp });
-	const onChange = useCallback(createOnChange(updateData), [updateData]);
+	const { getData, merge } = useFormState({ name, initialData: initialValue, merge: mergeProp });
+	const onChange = useCallback(createOnChange(merge), [merge]);
 
 	return (
 		<FormControl component="fieldset" classes={{ root: classes.fieldset }}>
@@ -19,7 +25,7 @@ const PhoneEntry = ({ name, data: dataProp, updateData: updateDataProp, removeEn
 						select
 						label="Country Code"
 						name="countryCode"
-						value={data.countryCode}
+						value={getData().countryCode}
 						onChange={onChange}
 						classes={{ root: classes.input }}
 					>
@@ -35,7 +41,7 @@ const PhoneEntry = ({ name, data: dataProp, updateData: updateDataProp, removeEn
 					<TextField
 						label="Number"
 						name="number"
-						value={data.number}
+						value={getData().number}
 						onChange={onChange}
 						classes={{ root: classes.input }}
 					/>

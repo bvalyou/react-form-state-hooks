@@ -1,7 +1,7 @@
-import type { GetData, Merge } from 'react-form-state-hooks/semiControlled/useFormState.types';
+import type { Data, Merge } from 'react-form-state-hooks/semiControlled/useFormState.types';
 
 export interface PhoneSectionProps {
 	name: string;
-	getData: GetData;
+	initialData: Data;
 	merge: Merge;
 }

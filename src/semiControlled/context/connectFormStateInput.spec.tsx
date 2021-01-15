@@ -1,10 +1,10 @@
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
-import useListFormState from '../useListFormState';
 import useFormState from '../useFormState';
+import { FormState } from '../useFormState.types';
+import useListFormState from '../useListFormState';
 import connectFormStateInput from './connectFormStateInput';
 import FormStateContext from './FormStateContext';
-import { FormState } from '../useFormState.types';
 
 describe('connectFormStateInput', () => {
 	it('should pass through if the FormStateContext value is null', () => {

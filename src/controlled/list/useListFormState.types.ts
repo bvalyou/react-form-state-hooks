@@ -1,5 +1,13 @@
-import { Data, UpdateData } from '../useFormState.types';
 import { IndexMapping } from '../../utils/listFormData.types';
+import { Data, UpdateData } from '../useFormState.types';
+
+export enum ListActionType {
+	Init,
+	Update,
+	Add,
+	Remove,
+	Reset,
+}
 
 /**
  * @property name - A generated name for the entry
@@ -12,6 +20,8 @@ export interface Entry<T = unknown> {
 	value: T;
 }
 
+export type ListData<T = unknown> = T[];
+
 /**
  * @param name - The key in the parent state object where this list will go
  * @param updateData - A function to call when the data changes
@@ -21,8 +31,8 @@ export interface Entry<T = unknown> {
 export interface UseListFormStateOptions<T = unknown> {
 	name?: string;
 	updateData?: UpdateData;
-	initialData?: T[];
-	data?: T[];
+	initialData?: ListData<T>;
+	data?: ListData<T>;
 }
 
 export type AddEntry<T = unknown> = (value: T, index?: number) => void;
@@ -41,20 +51,20 @@ export interface ListFormState<T = unknown> {
 	addEntry: AddEntry<T>;
 	removeEntry: RemoveEntry;
 	mappedData: Data<T>;
-	data: T[];
+	data: ListData<T>;
 	updateData: UpdateData<T>;
 }
 
 export interface InternalListFormState<T = unknown> {
 	indexMap: IndexMapping;
 	data: Data<T>;
-	cause?: string;
+	cause: ListActionType;
 }
 
 export interface ListFormStateAction<T = unknown> {
-	type: string;
+	type: ListActionType;
 	name?: string;
 	value?: T;
 	index?: number;
-	data?: T[];
+	data?: ListData<T>;
 }

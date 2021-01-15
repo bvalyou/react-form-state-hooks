@@ -1,7 +1,9 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { setUnique } from '../../utils/listFormData';
 import useListFormState from './useListFormState';
+import { reducer } from './useListFormState.reducer';
 import type { ListFormState } from './useListFormState.types';
+import { ListActionType } from './useListFormState.types';
 
 describe('useListFormState', () => {
 	beforeEach(() => setUnique(0));
@@ -244,5 +246,52 @@ describe('useListFormState', () => {
 
 		expect(updateData).toHaveBeenCalledWith('foo', expected);
 		expect(updateData).toHaveBeenCalledTimes(2);
+	});
+
+	describe('reducer failures', () => {
+		it('should throw an error if called with ListActionType.Update but no name', () => {
+			expect(() =>
+				reducer(
+					{ indexMap: {}, cause: ListActionType.Init, data: {} },
+					{ type: ListActionType.Update }
+				)
+			).toThrow();
+		});
+
+		it('should throw an error if called with ListActionType.Remove but no name', () => {
+			expect(() =>
+				reducer(
+					{ indexMap: {}, cause: ListActionType.Init, data: {} },
+					{ type: ListActionType.Remove }
+				)
+			).toThrow();
+		});
+
+		it('should throw an error if called with ListActionType.Reset but no name', () => {
+			expect(() =>
+				reducer(
+					{ indexMap: {}, cause: ListActionType.Init, data: {} },
+					{ type: ListActionType.Reset, data: [] }
+				)
+			).toThrow();
+		});
+
+		it('should throw an error if called with ListActionType.Reset but no data', () => {
+			expect(() =>
+				reducer(
+					{ indexMap: {}, cause: ListActionType.Init, data: {} },
+					{ type: ListActionType.Reset, name: 'foo' }
+				)
+			).toThrow();
+		});
+
+		it('should throw an error if called with ListActionType.Init', () => {
+			expect(() =>
+				reducer(
+					{ indexMap: {}, cause: ListActionType.Init, data: {} },
+					{ type: ListActionType.Init }
+				)
+			).toThrow();
+		});
 	});
 });

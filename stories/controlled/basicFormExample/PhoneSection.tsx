@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react';
-import { useFormState, createOnChange } from 'react-form-state-hooks/controlled';
 import { FormControl, FormLabel, Grid, TextField } from '@material-ui/core';
-import phoneCountryCodes from './phoneCountryCodes';
+import React, { useCallback } from 'react';
+import { createOnChange, useFormState } from 'react-form-state-hooks/controlled';
 import useStyles from './BasicForm.styles';
+import phoneCountryCodes from './phoneCountryCodes';
 import type { PhoneSectionProps } from './PhoneSection.types';
 
 const PhoneSection = ({

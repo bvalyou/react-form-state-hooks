@@ -1,5 +1,5 @@
 export default {
-	title: 'useListFormState',
+	title: 'Semi-Controlled useListFormState',
 };
 
 export { default as FormWithList } from './listFormExample/FormWithList';

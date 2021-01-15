@@ -17,13 +17,19 @@ export interface FormState<T = unknown> {
 	updateData: UpdateData<T>;
 }
 
+export enum FormStateActionType {
+	Init,
+	Update,
+	Reset,
+}
+
 /**
  * An internal representation of the form state run managed by the reducer
  * @private
  */
 export interface InternalFormState<T = unknown> {
 	data: Data<T>;
-	cause?: string;
+	cause: FormStateActionType;
 }
 
 /**
@@ -31,7 +37,7 @@ export interface InternalFormState<T = unknown> {
  * @private
  */
 export interface FormStateAction<T = unknown> {
-	type: string;
+	type: FormStateActionType;
 	name?: string;
 	value?: T;
 	data?: Data<T>;

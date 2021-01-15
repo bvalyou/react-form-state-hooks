@@ -1,21 +1,22 @@
 import {
-	InternalListFormState,
-	ListActionType,
-	ListFormStateAction,
-	UseListFormStateOptions,
-} from './useListFormState.types';
-import {
 	addFieldToIndexMapping,
 	createIndexMapping,
 	mapData,
 	removeFieldFromIndexMapping,
 } from '../utils/listFormData';
+import {
+	InternalListFormState,
+	ListActionType,
+	ListFormStateAction,
+	UseListFormStateOptions,
+} from './useListFormState.types';
 
 export function init(options: UseListFormStateOptions): InternalListFormState {
 	const indexMap = createIndexMapping(options.name, options.initialData || []);
 	return {
 		indexMap,
 		initialFormData: mapData(options.initialData, indexMap),
+		cause: ListActionType.Init,
 	};
 }
 
@@ -37,7 +38,11 @@ export function reducer(
 				throw new Error('action.name is required for action type Remove');
 			}
 
-			return { indexMap: removeFieldFromIndexMapping(action.name, prevState.indexMap) };
+			return {
+				indexMap: removeFieldFromIndexMapping(action.name, prevState.indexMap),
+				cause: action.type,
+				removedName: action.name,
+			};
 		}
 		case ListActionType.Reset: {
 			const indexMap = createIndexMapping(action.name, action.data || []);

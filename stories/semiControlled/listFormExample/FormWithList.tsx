@@ -1,29 +1,25 @@
-import React, { useCallback } from 'react';
-import { useFormState, createOnChange } from 'react-form-state-hooks/controlled';
 import { Button, Grid, TextField } from '@material-ui/core';
+import React, { useCallback } from 'react';
+import { createOnChange, useFormState } from 'react-form-state-hooks/semiControlled';
+import type { Data } from 'react-form-state-hooks/semiControlled/useFormState.types';
+import type { ListData } from 'react-form-state-hooks/semiControlled/useListFormState.types';
+import useStyles from '../basicFormExample/BasicForm.styles';
 import myService from '../basicFormExample/myService';
 import PhoneSection from './PhoneSection';
-import useStyles from '../basicFormExample/BasicForm.styles';
 
-const MyForm = () => {
+const MyForm = (): React.ReactElement => {
 	const classes = useStyles();
-	const { data, updateData } = useFormState();
-	const onChange = useCallback(createOnChange(updateData), [updateData]);
-
-	const onSubmit = (event) => {
-		event.preventDefault();
-
-		myService(data);
-	};
+	const { getData, merge, onSubmit } = useFormState({ submit: myService });
+	const onChange = useCallback(createOnChange(merge), [merge]);
 
 	return (
-		<form onSubmit={onSubmit} className={classes.root}>
+		<form onSubmit={onSubmit}>
 			<Grid container>
 				<Grid sm={12} md={6}>
 					<TextField
 						label="First Name"
 						name="firstName"
-						value={data.firstName}
+						value={getData().firstName}
 						onChange={onChange}
 						classes={{ root: classes.input }}
 					/>
@@ -33,14 +29,18 @@ const MyForm = () => {
 					<TextField
 						label="Last Name"
 						name="lastName"
-						value={data.lastName}
+						value={getData().lastName}
 						onChange={onChange}
 						classes={{ root: classes.input }}
 					/>
 				</Grid>
 
 				<Grid sm={12}>
-					<PhoneSection name="phoneNumber" data={data.phoneNumber} updateData={updateData} />
+					<PhoneSection
+						name="phoneNumber"
+						initialData={getData().phoneNumber as ListData<Data>}
+						merge={merge}
+					/>
 				</Grid>
 
 				<Grid sm={12}>

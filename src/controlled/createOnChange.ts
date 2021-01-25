@@ -1,5 +1,4 @@
-import React from 'react';
-import { UpdateData } from './useFormState.types';
+import { OnChange, UpdateData } from './useFormState.types';
 
 /**
  * @module createOnChange
@@ -17,18 +16,16 @@ import { UpdateData } from './useFormState.types';
  * @returns {onChange} Takes a change event and uses it to update the form state
  * @alias module:createOnChange
  */
-const createOnChange = (
-	updateData: UpdateData,
-	onChange?: (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => void
-) => (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>): void => {
+const createOnChange = (updateData: UpdateData, onChange?: OnChange): OnChange => (event) => {
 	const {
-		target: { name, value, type, checked },
+		target: { name, value, type },
 	} = event;
 
 	onChange?.(event);
 
 	if (type === 'radio' || type === 'checkbox') {
-		updateData(name, checked ? value : false);
+		const { checked } = event.target as HTMLInputElement;
+		updateData(name, checked ? value || true : false);
 	} else {
 		updateData(name, value);
 	}

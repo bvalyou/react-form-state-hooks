@@ -6,6 +6,7 @@ import { FormState } from 'react-form-state-hooks/controlled/useFormState.types'
 import useStyles from '../basicFormExample/BasicForm.styles';
 import myService from '../basicFormExample/myService';
 import Input from './Input';
+import { PhoneNumber } from './PhoneEntry.types';
 import PhoneSection from './PhoneSection';
 
 const onSubmit = ({ data }: FormState) => (event: React.FormEvent) => {
@@ -14,9 +15,16 @@ const onSubmit = ({ data }: FormState) => (event: React.FormEvent) => {
 	myService(data);
 };
 
+export interface MyFormData {
+	firstName?: string;
+	lastName?: string;
+	isHuman?: boolean;
+	phoneNumber?: PhoneNumber[];
+}
+
 const ContextForm = (): React.ReactElement => {
 	const classes = useStyles();
-	const value = useFormState();
+	const value = useFormState<MyFormData>();
 
 	return (
 		<FormStateContext.Provider value={value}>
@@ -31,7 +39,7 @@ const ContextForm = (): React.ReactElement => {
 					</Grid>
 
 					<Grid sm={12}>
-						<PhoneSection name="phoneNumber" />
+						<PhoneSection />
 					</Grid>
 
 					<Grid sm={12}>

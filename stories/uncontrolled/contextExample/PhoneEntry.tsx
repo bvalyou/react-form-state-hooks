@@ -1,9 +1,9 @@
 import { Button, FormControl, FormLabel, Grid } from '@material-ui/core';
 import React, { useContext } from 'react';
-import { useFormState } from 'react-form-state-hooks/semiControlled';
-import { FormStateContext } from 'react-form-state-hooks/semiControlled/context';
-import { Data } from 'react-form-state-hooks/semiControlled/useFormState.types';
-import { ListFormState } from 'react-form-state-hooks/semiControlled/useListFormState.types';
+import { Merge, useFormState } from 'react-form-state-hooks/uncontrolled';
+import { FormStateContext } from 'react-form-state-hooks/uncontrolled/context';
+import { Data } from 'react-form-state-hooks/uncontrolled/useFormState.types';
+import { ListFormState } from 'react-form-state-hooks/uncontrolled/useListFormState.types';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import phoneCountryCodes from '../basicFormExample/phoneCountryCodes';
 import Input from './Input';
@@ -18,7 +18,7 @@ const PhoneEntry = ({ name }: PhoneEntryProps): React.ReactElement => {
 			value={useFormState({
 				name,
 				initialData: formState.getData().formData[name] as Data,
-				merge: formState.merge,
+				merge: formState.merge as Merge,
 			})}
 		>
 			<FormControl component="fieldset" classes={{ root: classes.fieldset }}>

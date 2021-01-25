@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { createOnChange, useFormState } from 'react-form-state-hooks/controlled';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import phoneCountryCodes from '../basicFormExample/phoneCountryCodes';
+import { PhoneNumber } from './FormWithList';
 import { PhoneEntryProps } from './PhoneEntry.types';
 
 const PhoneEntry = ({
@@ -12,7 +13,11 @@ const PhoneEntry = ({
 	removeEntry,
 }: PhoneEntryProps): React.ReactElement => {
 	const classes = useStyles();
-	const { data, updateData } = useFormState({ name, data: dataProp, updateData: updateDataProp });
+	const { data, updateData } = useFormState<PhoneNumber>({
+		name,
+		data: dataProp,
+		updateData: updateDataProp,
+	});
 	const onChange = useCallback(createOnChange(updateData), [updateData]);
 
 	return (

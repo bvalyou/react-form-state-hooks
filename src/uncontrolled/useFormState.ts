@@ -1,15 +1,15 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import { ChangeEvent, Data, FormState, UseFormStateOptions } from './useFormState.types';
 
-const useFormState = ({
-	initialData: initialDataOption,
+function useFormState<T extends Data = Data>({
+	initialData: initialDataOption = {} as T,
 	merge: mergeOption,
 	name: nameOption,
 	submit: submitOption,
-}: UseFormStateOptions = {}): FormState => {
-	const data = useRef(initialDataOption || {});
+}: UseFormStateOptions<T> = {}): FormState<T> {
+	const data = useRef<T>(initialDataOption || {});
 
-	const getData = useCallback((): Data => data.current, []);
+	const getData = useCallback<() => T>(() => data.current, []);
 
 	const merge = useCallback(
 		(nextState) => {
@@ -22,7 +22,7 @@ const useFormState = ({
 		[mergeOption, nameOption]
 	);
 
-	const reset = useCallback((nextState: Data) => {
+	const reset = useCallback<(nextState: T) => T>((nextState) => {
 		data.current = nextState;
 
 		return data.current;
@@ -62,6 +62,6 @@ const useFormState = ({
 		}),
 		[getData, merge, onChange, reset, onSubmit]
 	);
-};
+}
 
 export default useFormState;

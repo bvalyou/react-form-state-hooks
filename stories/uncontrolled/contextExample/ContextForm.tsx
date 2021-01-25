@@ -1,15 +1,23 @@
 import { Button, Grid } from '@material-ui/core';
 import React from 'react';
-import { useFormState } from 'react-form-state-hooks/semiControlled';
-import { FormStateContext } from 'react-form-state-hooks/semiControlled/context';
+import { useFormState } from 'react-form-state-hooks/uncontrolled';
+import { FormStateContext } from 'react-form-state-hooks/uncontrolled/context';
+import { PhoneNumber } from '../../controlled/contextExample/PhoneEntry.types';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import myService from '../basicFormExample/myService';
 import Input from './Input';
 import PhoneSection from './PhoneSection';
 
+export interface MyFormData {
+	firstName?: string;
+	lastName?: string;
+	isHuman?: boolean;
+	phoneNumber?: PhoneNumber[];
+}
+
 const ContextForm = (): React.ReactElement => {
 	const classes = useStyles();
-	const value = useFormState({ submit: myService });
+	const value = useFormState<MyFormData>({ submit: myService });
 
 	return (
 		<FormStateContext.Provider value={value}>

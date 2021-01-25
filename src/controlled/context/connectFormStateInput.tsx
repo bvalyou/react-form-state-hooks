@@ -29,7 +29,10 @@ function connectFormStateInput<P extends InputProps>(
 		);
 
 		const value =
-			(isListFormState(formState) ? formState.mappedData : formState?.data)?.[props.name] || '';
+			((isListFormState(formState) ? formState.mappedData : formState?.data) as Record<
+				string,
+				unknown
+			>)?.[props.name] || '';
 		const stateProps = formState
 			? props.type === 'checkbox' || props.type === 'radio'
 				? {

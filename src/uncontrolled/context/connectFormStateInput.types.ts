@@ -1,4 +1,4 @@
-import React from 'react';
+import { ChangeEvent, ComponentType } from 'react';
 
 /**
  * @callback A component function
@@ -11,10 +11,10 @@ import React from 'react';
  */
 export interface InputProps extends Record<string, unknown> {
 	name: string;
-	onChange?: (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => void;
+	onChange?: (event: ChangeEvent<HTMLInputElement & HTMLSelectElement>) => void;
 	type?: string;
 	value?: string;
 	checked?: boolean;
 }
 
-export type InputComponent<T extends InputProps> = React.ComponentType<T>;
+export type InputComponent<T extends InputProps> = ComponentType<T>;

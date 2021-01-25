@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useReducer } from 'react';
 import { reducer } from './useFormState.reducer';
-import type { FormState, UseFormStateOptions } from './useFormState.types';
+import type { Data, FormState, FormStateReducer, UseFormStateOptions } from './useFormState.types';
 import { FormStateActionType } from './useFormState.types';
 
 /**
@@ -17,14 +17,14 @@ import { FormStateActionType } from './useFormState.types';
  * @returns {FormState} Tools for rendering a form
  * @alias module:useFormState
  */
-function useFormState({
-	initialData = {},
+function useFormState<T extends Data = Data>({
+	initialData = {} as T,
 	name: nameProp,
 	updateData: updateDataProp,
 	data: dataProp,
-}: UseFormStateOptions = {}): FormState {
-	const [state, dispatch] = useReducer(reducer, {
-		data: dataProp || initialData,
+}: UseFormStateOptions<T> = {}): FormState<T> {
+	const [state, dispatch] = useReducer<FormStateReducer<T>>(reducer, {
+		data: dataProp || initialData || {},
 		cause: FormStateActionType.Init,
 	});
 

@@ -1,14 +1,21 @@
 import { Button, Grid, TextField } from '@material-ui/core';
 import React, { useCallback } from 'react';
 import { createOnChange, useFormState } from 'react-form-state-hooks/controlled';
-import type { Data } from 'react-form-state-hooks/controlled/useFormState.types';
 import useStyles from './BasicForm.styles';
 import myService from './myService';
 import PhoneSection from './PhoneSection';
+import { PhoneNumber } from './PhoneSection.types';
+
+interface MyFormData {
+	firstName?: string;
+	lastName?: string;
+	isHuman?: boolean;
+	phoneNumber?: PhoneNumber;
+}
 
 const MyForm = (): React.ReactElement => {
 	const classes = useStyles();
-	const { data, updateData } = useFormState();
+	const { data, updateData } = useFormState<MyFormData>();
 	const onChange = useCallback(createOnChange(updateData), [updateData]);
 
 	const onSubmit = (event: React.FormEvent) => {
@@ -40,11 +47,7 @@ const MyForm = (): React.ReactElement => {
 				</Grid>
 
 				<Grid sm={12}>
-					<PhoneSection
-						name="phoneNumber"
-						data={(data.phoneNumber as unknown) as Data}
-						updateData={updateData}
-					/>
+					<PhoneSection name="phoneNumber" data={data.phoneNumber} updateData={updateData} />
 				</Grid>
 
 				<Grid sm={12}>

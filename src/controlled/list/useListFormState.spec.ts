@@ -223,15 +223,19 @@ describe('useListFormState', () => {
 	it.each([
 		[
 			'updateData',
-			(listFormState: ListFormState) => listFormState.updateData('foo-0', 'newValue'),
+			(listFormState: ListFormState<string>) => listFormState.updateData('foo-0', 'newValue'),
 			['newValue'],
 		],
 		[
 			'addEntry',
-			(listFormState: ListFormState) => listFormState.addEntry('newValue'),
+			(listFormState: ListFormState<string>) => listFormState.addEntry('newValue'),
 			['bar', 'newValue'],
 		],
-		['removeEntry', (listFormState: ListFormState) => listFormState.removeEntry('foo-0'), []],
+		[
+			'removeEntry',
+			(listFormState: ListFormState<string>) => listFormState.removeEntry('foo-0'),
+			[],
+		],
 	])('should call its updateData option when its state changes via %s', (_, action, expected) => {
 		const updateData = jest.fn();
 		const { result } = renderHook(() =>
@@ -252,7 +256,7 @@ describe('useListFormState', () => {
 		it('should throw an error if called with ListActionType.Update but no name', () => {
 			expect(() =>
 				reducer(
-					{ indexMap: {}, cause: ListActionType.Init, data: {} },
+					{ indexMap: {}, cause: ListActionType.Init, formData: {} },
 					{ type: ListActionType.Update }
 				)
 			).toThrow();
@@ -261,7 +265,7 @@ describe('useListFormState', () => {
 		it('should throw an error if called with ListActionType.Remove but no name', () => {
 			expect(() =>
 				reducer(
-					{ indexMap: {}, cause: ListActionType.Init, data: {} },
+					{ indexMap: {}, cause: ListActionType.Init, formData: {} },
 					{ type: ListActionType.Remove }
 				)
 			).toThrow();
@@ -270,7 +274,7 @@ describe('useListFormState', () => {
 		it('should throw an error if called with ListActionType.Reset but no name', () => {
 			expect(() =>
 				reducer(
-					{ indexMap: {}, cause: ListActionType.Init, data: {} },
+					{ indexMap: {}, cause: ListActionType.Init, formData: {} },
 					{ type: ListActionType.Reset, data: [] }
 				)
 			).toThrow();
@@ -279,7 +283,7 @@ describe('useListFormState', () => {
 		it('should throw an error if called with ListActionType.Reset but no data', () => {
 			expect(() =>
 				reducer(
-					{ indexMap: {}, cause: ListActionType.Init, data: {} },
+					{ indexMap: {}, cause: ListActionType.Init, formData: {} },
 					{ type: ListActionType.Reset, name: 'foo' }
 				)
 			).toThrow();
@@ -288,7 +292,7 @@ describe('useListFormState', () => {
 		it('should throw an error if called with ListActionType.Init', () => {
 			expect(() =>
 				reducer(
-					{ indexMap: {}, cause: ListActionType.Init, data: {} },
+					{ indexMap: {}, cause: ListActionType.Init, formData: {} },
 					{ type: ListActionType.Init }
 				)
 			).toThrow();

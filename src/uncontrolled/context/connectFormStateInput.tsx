@@ -29,7 +29,7 @@ function connectFormStateInput<P extends InputProps>(
 		);
 
 		const data = isListFormState(formState) ? formState.getData().formData : formState?.getData?.();
-		const defaultValue = data?.[props.name] || '';
+		const defaultValue = (data as Record<string, unknown>)?.[props.name] || '';
 
 		const stateProps = formState
 			? props.type === 'checkbox' || props.type === 'radio'

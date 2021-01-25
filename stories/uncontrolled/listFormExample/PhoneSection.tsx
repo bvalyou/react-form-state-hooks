@@ -1,7 +1,8 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
-import { useListFormState } from 'react-form-state-hooks/semiControlled';
-import { Data } from 'react-form-state-hooks/semiControlled/useFormState.types';
+import { useListFormState } from 'react-form-state-hooks/uncontrolled';
+import { Data } from 'react-form-state-hooks/uncontrolled/useFormState.types';
+import { PhoneEntryData } from './FormWithList.types';
 import PhoneEntry from './PhoneEntry';
 import { PhoneSectionProps } from './PhoneSection.types';
 
@@ -10,7 +11,7 @@ const PhoneSection = ({
 	initialData: initialData,
 	merge: mergeProp,
 }: PhoneSectionProps): React.ReactElement => {
-	const { entries, addEntry, removeEntry, merge } = useListFormState({
+	const { entries, addEntry, removeEntry, merge } = useListFormState<PhoneEntryData>({
 		name,
 		initialData: initialData,
 		merge: mergeProp,

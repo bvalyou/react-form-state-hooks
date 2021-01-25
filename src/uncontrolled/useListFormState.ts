@@ -1,11 +1,15 @@
-import { useEffect, useMemo, useReducer, useRef } from 'react';
+import { Dispatch, useEffect, useMemo, useReducer, useRef } from 'react';
 import { compareEntries, unmapData } from '../utils/listFormData';
+import { ListFormData } from '../utils/listFormData.types';
 import { FormState } from './useFormState.types';
 import { init, reducer } from './useListFormState.reducer';
 import {
 	Entry,
+	InternalListFormState,
 	ListActionType,
 	ListFormState,
+	ListFormStateAction,
+	ListFormStateReducer,
 	UseListFormStateOptions,
 } from './useListFormState.types';
 
@@ -15,13 +19,18 @@ export function isListFormState(
 	return !!(formState && (formState as ListFormState).entries);
 }
 
-export default function useListFormState(options: UseListFormStateOptions = {}): ListFormState {
+export default function useListFormState<T = unknown>(
+	options: UseListFormStateOptions<T> = {}
+): ListFormState<T> {
 	const { name, merge } = options;
-	const [
-		{ indexMap, cause, newName, newValue, initialFormData, removedName },
-		dispatch,
-	] = useReducer(reducer, options, init);
-	const formData = useRef(initialFormData || {});
+	const [{ indexMap, cause, newName, newValue, initialFormData, removedName }, dispatch]: [
+		InternalListFormState<T>,
+		Dispatch<ListFormStateAction<T>>
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		// useReducer's generic type doesn't understand the init arg - it thinks second arg must be type of state
+	] = useReducer<ListFormStateReducer<T>>(reducer, options, init);
+	const formData = useRef<ListFormData<T>>(initialFormData || {});
 
 	useEffect(() => {
 		if (cause === ListActionType.Add && newName) {
@@ -53,12 +62,12 @@ export default function useListFormState(options: UseListFormStateOptions = {}):
 		}
 	}, [name, merge, indexMap, cause, initialFormData]);
 
-	return useMemo(
-		(): ListFormState => ({
-			entries: Object.entries(indexMap)
+	return useMemo<ListFormState<T>>(
+		() => ({
+			entries: Object.entries<number>(indexMap)
 				.sort(compareEntries)
 				.map(
-					([name]): Entry => ({
+					([name]): Entry<T> => ({
 						name,
 						key: name,
 						initialValue: formData.current[name],
@@ -72,13 +81,13 @@ export default function useListFormState(options: UseListFormStateOptions = {}):
 			},
 			getData: () => ({
 				formData: formData.current,
-				data: unmapData(formData.current, indexMap),
+				data: unmapData<T>(formData.current, indexMap),
 			}),
 			merge: (data) => {
 				formData.current = { ...formData.current, ...data };
 
 				if (name && merge) {
-					merge({ [name]: unmapData(formData.current, indexMap) });
+					merge({ [name]: unmapData<T>(formData.current, indexMap) });
 				}
 
 				return formData.current;

@@ -3,6 +3,7 @@ import React from 'react';
 import useFormState from '../useFormState';
 import { FormState } from '../useFormState.types';
 import useListFormState from '../useListFormState';
+import { ListFormState } from '../useListFormState.types';
 import connectFormStateInput from './connectFormStateInput';
 import FormStateContext from './FormStateContext';
 
@@ -69,7 +70,7 @@ describe('connectFormStateInput', () => {
 			formValue = useListFormState({ initialData: [''] });
 
 			return (
-				<FormStateContext.Provider value={formValue}>
+				<FormStateContext.Provider value={formValue as ListFormState}>
 					{formValue.entries.map(({ name, key }) => (
 						<React.Fragment key={key}>
 							<label htmlFor={name}>Foo</label>
@@ -82,7 +83,7 @@ describe('connectFormStateInput', () => {
 
 		const { getByLabelText } = render(<MyForm />);
 
-		formValue = (formValue as unknown) as FormState;
+		formValue = (formValue as unknown) as ListFormState;
 
 		expect(formValue.getData().data).toEqual(['']);
 

@@ -12,7 +12,9 @@ describe('useFormState', () => {
 
 	describe('merge', () => {
 		it('should update data', () => {
-			const { result } = renderHook(() => useFormState({ initialData: { foo: 'bar' } }));
+			const { result } = renderHook(() =>
+				useFormState<Record<string, string>>({ initialData: { foo: 'bar' } })
+			);
 
 			const initialValue = result.current;
 
@@ -61,7 +63,9 @@ describe('useFormState', () => {
 	});
 
 	it('should reset its data when reset is called', () => {
-		const { result } = renderHook(() => useFormState({ initialData: { foo: 'bar' } }));
+		const { result } = renderHook(() =>
+			useFormState<Record<string, string>>({ initialData: { foo: 'bar' } })
+		);
 
 		const initialValue = result.current;
 

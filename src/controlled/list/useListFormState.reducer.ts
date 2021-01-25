@@ -10,6 +10,7 @@ import {
 	InternalListFormState,
 	ListActionType,
 	ListFormStateAction,
+	ListFormStateReducerInitOptions,
 } from './useListFormState.types';
 
 /**
@@ -19,20 +20,16 @@ import {
  * @param data - The current list values
  * @private
  */
-export function init({
+export function init<T = unknown>({
 	name,
 	initialData,
 	data,
-}: {
-	name?: string;
-	initialData: unknown[];
-	data?: unknown[];
-}): InternalListFormState {
+}: ListFormStateReducerInitOptions<T>): InternalListFormState<T> {
 	const indexMap = createIndexMapping(name, data || initialData);
 
 	return {
 		indexMap,
-		data: mapData(data || initialData, indexMap),
+		formData: mapData<T>(data || initialData, indexMap),
 		cause: ListActionType.Init,
 	};
 }
@@ -44,10 +41,10 @@ export function init({
  * @returns The new state
  * @private
  */
-export function reducer(
-	prevState: InternalListFormState,
-	action: ListFormStateAction
-): InternalListFormState {
+export function reducer<T = unknown>(
+	prevState: InternalListFormState<T>,
+	action: ListFormStateAction<T>
+): InternalListFormState<T> {
 	switch (action.type) {
 		case ListActionType.Update: {
 			if (!action.name) {
@@ -55,8 +52,8 @@ export function reducer(
 			}
 			return {
 				indexMap: prevState.indexMap,
-				data: {
-					...prevState.data,
+				formData: {
+					...prevState.formData,
 					[action.name]: action.value,
 				},
 				cause: action.type,
@@ -71,8 +68,8 @@ export function reducer(
 
 			return {
 				indexMap,
-				data: {
-					...prevState.data,
+				formData: {
+					...prevState.formData,
 					[newName]: action.value,
 				},
 				cause: action.type,
@@ -84,7 +81,7 @@ export function reducer(
 			}
 			return {
 				indexMap: removeFieldFromIndexMapping(action.name, prevState.indexMap),
-				data: Object.entries(prevState.data)
+				formData: Object.entries(prevState.formData)
 					.filter(([key]) => key !== action.name)
 					.reduce(
 						(memo, [key, value]) => ({
@@ -105,7 +102,7 @@ export function reducer(
 				throw new Error('action.name is required for action type reset');
 			}
 
-			const prevArray = unmapData(prevState.data, prevState.indexMap);
+			const prevArray = unmapData(prevState.formData, prevState.indexMap);
 
 			if (
 				action.data.length &&
@@ -118,7 +115,7 @@ export function reducer(
 
 			return {
 				indexMap,
-				data: mapData(action.data, indexMap),
+				formData: mapData<T>(action.data, indexMap),
 				cause: action.type,
 			};
 		}

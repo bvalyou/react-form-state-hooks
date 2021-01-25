@@ -1,5 +1,6 @@
 import React from 'react';
-import { Merge } from '../semiControlled/useFormState.types';
+import { Merge } from './useFormState.types';
+import { ListMerge } from './useListFormState.types';
 
 /**
  * @module createOnChange
@@ -18,7 +19,7 @@ import { Merge } from '../semiControlled/useFormState.types';
  * @alias module:createOnChange
  */
 const createOnChange = (
-	merge: Merge,
+	merge: Merge | ListMerge,
 	onChange?: (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => void
 ) => (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>): void => {
 	const {
@@ -28,7 +29,7 @@ const createOnChange = (
 	onChange?.(event);
 
 	if (type === 'radio' || type === 'checkbox') {
-		merge({ [name]: checked ? value : false });
+		merge({ [name]: checked ? value || true : false });
 	} else {
 		merge({ [name]: value });
 	}

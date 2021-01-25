@@ -1,5 +1,5 @@
-import { IndexMapping } from '../../utils/listFormData.types';
-import { Data, UpdateData } from '../useFormState.types';
+import React from 'react';
+import { IndexMapping, ListData, ListFormData } from '../../utils/listFormData.types';
 
 export enum ListActionType {
 	Init,
@@ -17,10 +17,8 @@ export enum ListActionType {
 export interface Entry<T = unknown> {
 	name: string;
 	key: string;
-	value: T;
+	value?: T;
 }
-
-export type ListData<T = unknown> = T[];
 
 /**
  * @param name - The key in the parent state object where this list will go
@@ -30,11 +28,12 @@ export type ListData<T = unknown> = T[];
  */
 export interface UseListFormStateOptions<T = unknown> {
 	name?: string;
-	updateData?: UpdateData;
+	updateData?: UpdateListData;
 	initialData?: ListData<T>;
 	data?: ListData<T>;
 }
 
+export type UpdateListData<T = unknown> = (name: string, value: T) => void;
 export type AddEntry<T = unknown> = (value: T, index?: number) => void;
 export type RemoveEntry = (name: string) => void;
 
@@ -48,16 +47,19 @@ export type RemoveEntry = (name: string) => void;
  */
 export interface ListFormState<T = unknown> {
 	entries: Entry<T>[];
+	data: ListData<T>;
+	mappedData: ListFormData<T>;
+	updateData: UpdateListData<T>;
 	addEntry: AddEntry<T>;
 	removeEntry: RemoveEntry;
-	mappedData: Data<T>;
-	data: ListData<T>;
-	updateData: UpdateData<T>;
 }
 
-export interface InternalListFormState<T = unknown> {
+export interface InternalListFormState<T> {
+	name?: string;
 	indexMap: IndexMapping;
-	data: Data<T>;
+	formData: ListFormData<T>;
+	initialData?: ListData<T>;
+	data?: ListData<T>;
 	cause: ListActionType;
 }
 
@@ -68,3 +70,14 @@ export interface ListFormStateAction<T = unknown> {
 	index?: number;
 	data?: ListData<T>;
 }
+
+export interface ListFormStateReducerInitOptions<T = unknown> {
+	name?: string;
+	initialData: ListData<T>;
+	data?: ListData<T>;
+}
+
+export type ListFormStateReducer<T = unknown> = React.Reducer<
+	InternalListFormState<T>,
+	ListFormStateAction<T>
+>;

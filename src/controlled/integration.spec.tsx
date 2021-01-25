@@ -8,6 +8,7 @@ test('controlled form without context', () => {
 
 	fireEvent.change(getByLabelText('First Name'), { target: { value: 'foo' } });
 	fireEvent.change(getByLabelText('Last Name'), { target: { value: 'bar' } });
+	fireEvent.click(getByLabelText('Are you a human?'));
 
 	fireEvent.click(getByText('+'));
 
@@ -24,6 +25,7 @@ test('controlled form without context', () => {
 	expect(service).toHaveBeenCalledWith({
 		firstName: 'foo',
 		lastName: 'bar',
+		isHuman: true,
 		phoneNumber: [
 			{
 				countryCode: 'US +1',

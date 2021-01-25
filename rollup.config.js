@@ -48,18 +48,18 @@ export default [
 		external,
 	},
 	{
-		input: 'src/semiControlled/index.ts',
+		input: 'src/uncontrolled/index.ts',
 		output: {
-			file: 'semiControlled/index.js',
+			file: 'uncontrolled/index.js',
 			format: 'cjs',
 		},
 		plugins,
 		external,
 	},
 	{
-		input: 'src/semiControlled/context/index.ts',
+		input: 'src/uncontrolled/context/index.ts',
 		output: {
-			file: 'semiControlled/context.js',
+			file: 'uncontrolled/context.js',
 			format: 'cjs',
 		},
 		plugins,

@@ -1,6 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import useListFormState from '../list/useListFormState';
+import { ListFormState } from '../list/useListFormState.types';
 import useFormState from '../useFormState';
 import type { FormState } from '../useFormState.types';
 import connectFormStateInput from './connectFormStateInput';
@@ -69,7 +70,7 @@ describe('connectFormStateInput', () => {
 			formValue = useListFormState({ initialData: [''] });
 
 			return (
-				<FormStateContext.Provider value={formValue}>
+				<FormStateContext.Provider value={formValue as ListFormState}>
 					{formValue.entries.map(({ name, key }) => (
 						<React.Fragment key={key}>
 							<label htmlFor={name}>Foo</label>

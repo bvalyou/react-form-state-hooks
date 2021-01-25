@@ -1,4 +1,5 @@
 import React from 'react';
+import type { OnChange } from '../useFormState.types';
 
 /**
  * @callback A component function
@@ -11,7 +12,7 @@ import React from 'react';
  */
 export interface InputProps extends Record<string, unknown> {
 	name: string;
-	onChange?: (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => void;
+	onChange?: OnChange;
 	type?: string;
 	value?: string;
 	checked?: boolean;

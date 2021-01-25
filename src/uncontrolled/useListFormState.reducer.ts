@@ -20,10 +20,10 @@ export function init(options: UseListFormStateOptions): InternalListFormState {
 	};
 }
 
-export function reducer(
-	prevState: InternalListFormState,
-	action: ListFormStateAction
-): InternalListFormState {
+export function reducer<T = unknown>(
+	prevState: InternalListFormState<T>,
+	action: ListFormStateAction<T>
+): InternalListFormState<T> {
 	switch (action.type) {
 		case ListActionType.Add: {
 			const [indexMap, newName] = addFieldToIndexMapping(
@@ -49,7 +49,7 @@ export function reducer(
 			return {
 				indexMap,
 				cause: action.type,
-				initialFormData: mapData(action.data, indexMap),
+				initialFormData: mapData<T>(action.data, indexMap),
 			};
 		}
 		default: {

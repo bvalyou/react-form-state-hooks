@@ -7,7 +7,10 @@ import { FormStateAction, FormStateActionType, InternalFormState } from './useFo
  * @returns {InternalFormState} - The new data
  * @private
  */
-export function reducer(prevState: InternalFormState, action: FormStateAction): InternalFormState {
+export function reducer<T = unknown>(
+	prevState: InternalFormState<T>,
+	action: FormStateAction<T>
+): InternalFormState<T> {
 	switch (action.type) {
 		case FormStateActionType.Update: {
 			if (!action.name) {

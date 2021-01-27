@@ -12,9 +12,7 @@ describe('useFormState', () => {
 
 	describe('merge', () => {
 		it('should update data', () => {
-			const { result } = renderHook(() =>
-				useFormState<Record<string, string>>({ initialData: { foo: 'bar' } })
-			);
+			const { result } = renderHook(() => useFormState<Record<string, string>>());
 
 			const initialValue = result.current;
 
@@ -22,7 +20,6 @@ describe('useFormState', () => {
 
 			expect(result.current).toBe(initialValue);
 			expect(result.current.getData()).toEqual({
-				foo: 'bar',
 				bar: 'baz',
 			});
 		});

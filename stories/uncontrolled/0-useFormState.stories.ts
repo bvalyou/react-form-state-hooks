@@ -1,5 +1,5 @@
 export default {
-	title: 'Semi-Controlled useFormState',
+	title: 'Uncontrolled useFormState',
 };
 
 export { default as BasicForm } from './basicFormExample/BasicForm';

@@ -1,7 +1,8 @@
-import type { Data, ListData, ListMerge } from 'react-form-state-hooks/uncontrolled';
+import type { ListData, ListMerge } from 'react-form-state-hooks/uncontrolled';
+import { PhoneNumber } from './FormWithList.types';
 
 export interface PhoneSectionProps {
 	name: string;
-	initialData: ListData<Data>;
+	initialData?: ListData<PhoneNumber>;
 	merge: ListMerge;
 }

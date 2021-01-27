@@ -1,8 +1,9 @@
 import { Button, FormControl, FormLabel, Grid, TextField } from '@material-ui/core';
-import React, { useCallback, useRef } from 'react';
-import { createOnChange, useFormState } from 'react-form-state-hooks/uncontrolled';
+import React, { useRef } from 'react';
+import { Merge, useFormState } from 'react-form-state-hooks/uncontrolled';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import phoneCountryCodes from '../basicFormExample/phoneCountryCodes';
+import { PhoneNumber } from './FormWithList.types';
 import { PhoneEntryProps } from './PhoneEntry.types';
 
 const PhoneEntry = ({
@@ -15,7 +16,7 @@ const PhoneEntry = ({
 	const { getData, onChange } = useFormState({
 		name,
 		initialData: initialValue,
-		merge: mergeProp,
+		merge: mergeProp as Merge<PhoneNumber>,
 	});
 	const numberInputRef = useRef();
 
@@ -29,6 +30,7 @@ const PhoneEntry = ({
 						select
 						label="Country Code"
 						name="countryCode"
+						id={`${name}-countryCode`}
 						value={getData().countryCode}
 						onChange={onChange}
 						classes={{ root: classes.input }}
@@ -45,6 +47,7 @@ const PhoneEntry = ({
 					<TextField
 						label="Number"
 						name="number"
+						id={`${name}-number`}
 						value={getData().number}
 						inputRef={numberInputRef}
 						onChange={onChange}

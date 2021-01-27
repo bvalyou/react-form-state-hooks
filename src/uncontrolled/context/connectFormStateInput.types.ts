@@ -1,4 +1,5 @@
-import { ChangeEvent, ComponentType } from 'react';
+import { ComponentType } from 'react';
+import { ChangeEvent } from '../useFormState.types';
 
 /**
  * @callback A component function
@@ -11,7 +12,7 @@ import { ChangeEvent, ComponentType } from 'react';
  */
 export interface InputProps extends Record<string, unknown> {
 	name: string;
-	onChange?: (event: ChangeEvent<HTMLInputElement & HTMLSelectElement>) => void;
+	onChange?: (event: ChangeEvent) => void;
 	type?: string;
 	value?: string;
 	checked?: boolean;

@@ -32,7 +32,7 @@ const ContextForm = (): React.ReactElement => {
 					</Grid>
 
 					<Grid sm={12}>
-						<PhoneSection name="phoneNumber" />
+						<PhoneSection />
 					</Grid>
 
 					<Grid sm={12}>

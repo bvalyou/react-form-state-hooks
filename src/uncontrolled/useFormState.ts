@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import { ChangeEvent, Data, FormState, UseFormStateOptions } from './useFormState.types';
+import createOnChange from './createOnChange';
+import type { Data, FormState, UseFormStateOptions } from './useFormState.types';
 
 function useFormState<T extends Data = Data>({
 	initialData: initialDataOption = {} as T,
@@ -7,7 +8,7 @@ function useFormState<T extends Data = Data>({
 	name: nameOption,
 	submit: submitOption,
 }: UseFormStateOptions<T> = {}): FormState<T> {
-	const data = useRef<T>(initialDataOption || {});
+	const data = useRef<T>(initialDataOption);
 
 	const getData = useCallback<() => T>(() => data.current, []);
 
@@ -28,20 +29,7 @@ function useFormState<T extends Data = Data>({
 		return data.current;
 	}, []);
 
-	const onChange = useCallback(
-		(event: ChangeEvent) => {
-			const { target: eventTarget } = event;
-			const { name, value, type } = eventTarget;
-
-			if (type === 'radio' || type === 'checkbox') {
-				const { checked } = eventTarget as HTMLInputElement;
-				return merge({ [name]: checked ? value : false });
-			}
-
-			return merge({ [name]: value });
-		},
-		[merge]
-	);
+	const onChange = useCallback((event) => createOnChange(merge)(event), [merge]);
 
 	const onSubmit = useCallback(
 		(event: React.FormEvent) => {

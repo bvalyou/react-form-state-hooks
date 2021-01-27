@@ -1,8 +1,9 @@
-import type { Data, ListMerge, RemoveEntry } from 'react-form-state-hooks/uncontrolled';
+import type { ListMerge, RemoveEntry } from 'react-form-state-hooks/uncontrolled';
+import { PhoneNumber } from './FormWithList.types';
 
 export interface PhoneEntryProps {
 	name: string;
-	initialValue: Data;
-	merge: ListMerge;
+	initialValue: PhoneNumber;
+	merge: ListMerge<PhoneNumber>;
 	removeEntry: RemoveEntry;
 }

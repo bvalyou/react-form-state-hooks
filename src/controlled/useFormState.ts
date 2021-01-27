@@ -24,7 +24,7 @@ function useFormState<T extends Data = Data>({
 	data: dataProp,
 }: UseFormStateOptions<T> = {}): FormState<T> {
 	const [state, dispatch] = useReducer<FormStateReducer<T>>(reducer, {
-		data: dataProp || initialData || {},
+		data: dataProp || initialData,
 		cause: FormStateActionType.Init,
 	});
 

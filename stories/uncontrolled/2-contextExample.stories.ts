@@ -1,5 +1,5 @@
 export default {
-	title: 'Semi-Controlled Context Examples',
+	title: 'Uncontrolled Context Examples',
 };
 
 export { default as ContextForm } from './contextExample/ContextForm';

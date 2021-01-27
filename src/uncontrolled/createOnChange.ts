@@ -1,5 +1,5 @@
 import React from 'react';
-import { Merge } from './useFormState.types';
+import { ChangeEvent, Merge } from './useFormState.types';
 import { ListMerge } from './useListFormState.types';
 
 /**
@@ -18,17 +18,17 @@ import { ListMerge } from './useListFormState.types';
  * @returns {onChange} Takes a change event and uses it to update the form state
  * @alias module:createOnChange
  */
-const createOnChange = (
-	merge: Merge | ListMerge,
-	onChange?: (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => void
-) => (event: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>): void => {
+const createOnChange = (merge: Merge | ListMerge, onChange?: (event: ChangeEvent) => void) => (
+	event: ChangeEvent
+): void => {
 	const {
-		target: { name, value, type, checked },
+		target: { name, value, type },
 	} = event;
 
 	onChange?.(event);
 
 	if (type === 'radio' || type === 'checkbox') {
+		const { checked } = event.target as HTMLInputElement;
 		merge({ [name]: checked ? value || true : false });
 	} else {
 		merge({ [name]: value });

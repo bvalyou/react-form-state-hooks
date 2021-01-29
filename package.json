@@ -1,6 +1,6 @@
 {
   "name": "react-form-state-hooks",
-  "version": "0.2.2",
+  "version": "0.3.0-rc.0",
   "description": "Manage your React form state with hooks and helpful components.",
   "main": "index.js",
   "scripts": {

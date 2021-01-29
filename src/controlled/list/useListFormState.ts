@@ -1,4 +1,5 @@
-import { Dispatch, useCallback, useEffect, useMemo, useReducer } from 'react';
+import type { Dispatch } from 'react';
+import { useCallback, useEffect, useMemo, useReducer } from 'react';
 import { compareEntries, unmapData } from '../../utils/listFormData';
 import type { FormState } from '../useFormState.types';
 import { init, reducer } from './useListFormState.reducer';

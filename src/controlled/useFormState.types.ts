@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 /**
  * An object representation of a form's data - supports nesting and complex data types

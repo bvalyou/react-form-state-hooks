@@ -1,5 +1,5 @@
-import { ComponentType } from 'react';
-import { ChangeEvent } from '../useFormState.types';
+import type { ComponentType } from 'react';
+import type { ChangeEvent } from '../useFormState.types';
 
 /**
  * @callback A component function

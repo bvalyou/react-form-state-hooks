@@ -2,11 +2,11 @@ import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormState } from 'react-form-state-hooks/controlled';
 import { FormStateContext } from 'react-form-state-hooks/controlled/context';
-import { FormState } from 'react-form-state-hooks/controlled/useFormState.types';
+import type { FormState } from 'react-form-state-hooks/controlled/useFormState.types';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import myService from '../basicFormExample/myService';
 import Input from './Input';
-import { PhoneNumber } from './PhoneEntry.types';
+import type { PhoneNumber } from './PhoneEntry.types';
 import PhoneSection from './PhoneSection';
 
 const onSubmit = ({ data }: FormState) => (event: React.FormEvent) => {

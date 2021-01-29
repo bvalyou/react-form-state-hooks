@@ -1,4 +1,4 @@
-import { UpdateData } from 'react-form-state-hooks/controlled/useFormState.types';
+import type { UpdateData } from 'react-form-state-hooks/controlled/useFormState.types';
 
 export interface PhoneSectionProps {
 	name: string;

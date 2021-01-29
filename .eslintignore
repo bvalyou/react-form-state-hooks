@@ -1,4 +1,5 @@
-/index.ts
+/index.js
 /context.js
 /controlled/
-/semiControlled/
+/uncontrolled/
+*.d.ts

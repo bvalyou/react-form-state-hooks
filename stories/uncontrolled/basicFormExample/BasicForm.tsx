@@ -1,6 +1,6 @@
 import { Button, Grid, TextField } from '@material-ui/core';
-import React, { useCallback } from 'react';
-import { createOnChange, useFormState } from 'react-form-state-hooks/uncontrolled';
+import React from 'react';
+import { useFormState } from 'react-form-state-hooks/uncontrolled';
 import useStyles from './BasicForm.styles';
 import myService from './myService';
 import PhoneSection from './PhoneSection';
@@ -19,8 +19,7 @@ interface MyFormData {
 
 const MyForm = (): React.ReactElement => {
 	const classes = useStyles();
-	const { getData, merge, onSubmit } = useFormState<MyFormData>({ submit: myService });
-	const onChange = useCallback(createOnChange(merge), [merge]);
+	const { getData, merge, onChange, onSubmit } = useFormState<MyFormData>({ submit: myService });
 
 	return (
 		<form onSubmit={onSubmit}>

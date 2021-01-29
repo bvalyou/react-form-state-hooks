@@ -6,12 +6,12 @@ import {
 	unmapData,
 	updateIndexMapping,
 } from '../../utils/listFormData';
-import {
+import type {
 	InternalListFormState,
-	ListActionType,
 	ListFormStateAction,
 	ListFormStateReducerInitOptions,
 } from './useListFormState.types';
+import { ListActionType } from './useListFormState.types';
 
 /**
  * Creates initial state

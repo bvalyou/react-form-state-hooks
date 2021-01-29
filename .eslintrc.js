@@ -1,3 +1,4 @@
+/* eslint-env node */
 module.exports = {
 	env: {
 		browser: true,
@@ -18,6 +19,12 @@ module.exports = {
 		'prettier/prettier': 'warn',
 		'react-hooks/rules-of-hooks': 'error',
 		'react-hooks/exhaustive-deps': 'warn',
+		'@typescript-eslint/consistent-type-assertions': [
+			'warn',
+			{ assertionStyle: 'as', objectLiteralTypeAssertions: 'allow-as-parameter' },
+		],
+		'@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
+		'@typescript-eslint/consistent-type-imports': ['warn', { prefer: 'type-imports' }],
 
 		'no-restricted-syntax': [
 			'error',

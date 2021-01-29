@@ -2,12 +2,12 @@ import { Button, FormControl, FormLabel, Grid } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { useFormState } from 'react-form-state-hooks/controlled';
 import { FormStateContext } from 'react-form-state-hooks/controlled/context';
-import { ListFormState } from 'react-form-state-hooks/controlled/list/useListFormState.types';
-import { Data } from 'react-form-state-hooks/controlled/useFormState.types';
+import type { ListFormState } from 'react-form-state-hooks/controlled/list/useListFormState.types';
+import type { Data } from 'react-form-state-hooks/controlled/useFormState.types';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import phoneCountryCodes from '../basicFormExample/phoneCountryCodes';
 import Input from './Input';
-import { PhoneEntryProps } from './PhoneEntry.types';
+import type { PhoneEntryProps } from './PhoneEntry.types';
 
 const PhoneEntry = ({ name }: PhoneEntryProps): React.ReactElement => {
 	const formState = (useContext(FormStateContext) as unknown) as ListFormState;

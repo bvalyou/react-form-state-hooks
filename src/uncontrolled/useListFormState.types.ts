@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import type { IndexMapping, ListData, ListFormData } from '../utils/listFormData.types';
 
 export enum ListActionType {
@@ -47,11 +47,11 @@ export interface UseListFormStateOptions<T = unknown> {
  * @property key - A unique identifier for an iterator function
  * @property value - The current value held by this entry
  */
-export type Entry<T = unknown> = {
+export interface Entry<T = unknown> {
 	name: string;
 	key: string;
 	initialValue?: T;
-};
+}
 
 export type AddEntry<T = unknown> = (value: T, index?: number) => void;
 export type RemoveEntry = (name: string) => void;

@@ -1,9 +1,10 @@
 import { Button, FormControlLabel, Grid, Switch, TextField } from '@material-ui/core';
 import React from 'react';
-import { ListMerge, useFormState } from 'react-form-state-hooks/uncontrolled';
+import type { ListMerge } from 'react-form-state-hooks/uncontrolled';
+import { useFormState } from 'react-form-state-hooks/uncontrolled';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import myService from '../basicFormExample/myService';
-import { MyFormData, MyFormProps } from './FormWithList.types';
+import type { MyFormData, MyFormProps } from './FormWithList.types';
 import PhoneSection from './PhoneSection';
 
 const MyForm = ({ service = myService }: MyFormProps): React.ReactElement => {

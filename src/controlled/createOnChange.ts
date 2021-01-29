@@ -1,4 +1,4 @@
-import { OnChange, UpdateData } from './useFormState.types';
+import type { OnChange, UpdateData } from './useFormState.types';
 
 /**
  * @module createOnChange

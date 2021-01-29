@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import React from 'react';
+import type React from 'react';
 import useFormState from './useFormState';
 
 describe('useFormState', () => {
@@ -78,13 +78,15 @@ describe('useFormState', () => {
 
 			const initialValue = result.current;
 
-			const inputEvent = <React.ChangeEvent<HTMLInputElement>>{
-				target: <HTMLInputElement>{
+			// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+			const inputEvent: React.ChangeEvent<HTMLInputElement> = {
+				target: {
 					name: 'foo',
 					value: 'bar',
 					type: 'text',
 				},
-			};
+			} as React.ChangeEvent<HTMLInputElement>;
+
 			result.current.onChange(inputEvent);
 
 			expect(result.current).toBe(initialValue);
@@ -100,14 +102,16 @@ describe('useFormState', () => {
 
 				const initialValue = result.current;
 
-				const inputEvent = <React.ChangeEvent<HTMLInputElement>>{
-					target: <HTMLInputElement>{
+				// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+				const inputEvent: React.ChangeEvent<HTMLInputElement> = {
+					target: {
 						name: 'foo',
 						value: 'bar',
 						type: type,
 						checked: true,
 					},
-				};
+				} as React.ChangeEvent<HTMLInputElement>;
+
 				result.current.onChange(inputEvent);
 
 				expect(result.current).toBe(initialValue);
@@ -133,9 +137,11 @@ describe('useFormState', () => {
 
 		const initialValue = result.current;
 
-		const submitEvent = <React.FormEvent<HTMLFormElement>>{
-			preventDefault: <() => void>jest.fn(),
-		};
+		// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+		const submitEvent: React.FormEvent<HTMLFormElement> = {
+			preventDefault: jest.fn() as () => void,
+		} as React.FormEvent<HTMLFormElement>;
+
 		result.current.onSubmit(submitEvent);
 
 		expect(result.current).toBe(initialValue);

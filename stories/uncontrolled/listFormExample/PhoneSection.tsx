@@ -1,10 +1,10 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { useListFormState } from 'react-form-state-hooks/uncontrolled';
-import { Data } from 'react-form-state-hooks/uncontrolled/useFormState.types';
-import { PhoneNumber } from './FormWithList.types';
+import type { Data } from 'react-form-state-hooks/uncontrolled/useFormState.types';
+import type { PhoneNumber } from './FormWithList.types';
 import PhoneEntry from './PhoneEntry';
-import { PhoneSectionProps } from './PhoneSection.types';
+import type { PhoneSectionProps } from './PhoneSection.types';
 
 const PhoneSection = ({
 	name,

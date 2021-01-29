@@ -64,7 +64,9 @@ typings/
 .idea
 
 # built files
+/dist
 /index.js
 /context.js
 /controlled
-/semiControlled
+/uncontrolled
+*.d.ts

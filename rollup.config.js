@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import babel from '@rollup/plugin-babel';
+import dts from 'rollup-plugin-dts';
 import pkg from './package.json';
 
 const plugins = [
@@ -24,6 +25,14 @@ export default [
 		external,
 	},
 	{
+		input: 'dist/src/index.d.ts',
+		output: {
+			file: 'index.d.ts',
+			format: 'es',
+		},
+		plugins: [dts()],
+	},
+	{
 		input: 'src/controlled/index.ts',
 		output: {
 			file: 'controlled/index.js',
@@ -31,6 +40,14 @@ export default [
 		},
 		plugins,
 		external,
+	},
+	{
+		input: 'dist/src/controlled/index.d.ts',
+		output: {
+			file: 'controlled/index.d.ts',
+			format: 'es',
+		},
+		plugins: [dts()],
 	},
 	{
 		input: 'src/controlled/context/index.ts',
@@ -48,6 +65,14 @@ export default [
 		external,
 	},
 	{
+		input: 'dist/src/controlled/context/index.d.ts',
+		output: {
+			file: 'controlled/context/index.d.ts',
+			format: 'es',
+		},
+		plugins: [dts()],
+	},
+	{
 		input: 'src/uncontrolled/index.ts',
 		output: {
 			file: 'uncontrolled/index.js',
@@ -57,6 +82,14 @@ export default [
 		external,
 	},
 	{
+		input: 'dist/src/uncontrolled/index.d.ts',
+		output: {
+			file: 'uncontrolled/index.d.ts',
+			format: 'es',
+		},
+		plugins: [dts()],
+	},
+	{
 		input: 'src/uncontrolled/context/index.ts',
 		output: {
 			file: 'uncontrolled/context.js',
@@ -64,5 +97,13 @@ export default [
 		},
 		plugins,
 		external,
+	},
+	{
+		input: 'dist/src/uncontrolled/context/index.d.ts',
+		output: {
+			file: 'uncontrolled/context.d.ts',
+			format: 'es',
+		},
+		plugins: [dts()],
 	},
 ];

@@ -3,8 +3,8 @@ import React, { useCallback } from 'react';
 import { createOnChange, useFormState } from 'react-form-state-hooks/controlled';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import phoneCountryCodes from '../basicFormExample/phoneCountryCodes';
-import { PhoneNumber } from './FormWithList';
-import { PhoneEntryProps } from './PhoneEntry.types';
+import type { PhoneNumber } from './FormWithList';
+import type { PhoneEntryProps } from './PhoneEntry.types';
 
 const PhoneEntry = ({
 	name,
@@ -18,7 +18,7 @@ const PhoneEntry = ({
 		data: dataProp,
 		updateData: updateDataProp,
 	});
-	const onChange = useCallback(createOnChange(updateData), [updateData]);
+	const onChange = useCallback((event) => createOnChange(updateData)(event), [updateData]);
 
 	return (
 		<FormControl component="fieldset" classes={{ root: classes.fieldset }}>

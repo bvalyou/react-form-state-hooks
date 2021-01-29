@@ -4,7 +4,7 @@ import { createOnChange, useFormState } from 'react-form-state-hooks/controlled'
 import useStyles from './BasicForm.styles';
 import myService from './myService';
 import PhoneSection from './PhoneSection';
-import { PhoneNumber } from './PhoneSection.types';
+import type { PhoneNumber } from './PhoneSection.types';
 
 interface MyFormData {
 	firstName?: string;
@@ -16,7 +16,7 @@ interface MyFormData {
 const MyForm = (): React.ReactElement => {
 	const classes = useStyles();
 	const { data, updateData } = useFormState<MyFormData>();
-	const onChange = useCallback(createOnChange(updateData), [updateData]);
+	const onChange = useCallback((event) => createOnChange(updateData)(event), [updateData]);
 
 	const onSubmit = (event: React.FormEvent) => {
 		event.preventDefault();

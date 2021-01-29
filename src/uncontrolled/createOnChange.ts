@@ -1,6 +1,5 @@
-import React from 'react';
-import { ChangeEvent, Merge } from './useFormState.types';
-import { ListMerge } from './useListFormState.types';
+import type { ChangeEvent, Merge } from './useFormState.types';
+import type { ListMerge } from './useListFormState.types';
 
 /**
  * @module createOnChange

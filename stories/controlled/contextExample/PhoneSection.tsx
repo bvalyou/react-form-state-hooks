@@ -1,11 +1,12 @@
 import { Button } from '@material-ui/core';
 import React, { useContext } from 'react';
-import { ListFormState, useListFormState } from 'react-form-state-hooks/controlled';
+import type { ListFormState } from 'react-form-state-hooks/controlled';
+import { useListFormState } from 'react-form-state-hooks/controlled';
 import { FormStateContext } from 'react-form-state-hooks/controlled/context';
-import { FormState } from 'react-form-state-hooks/controlled/useFormState.types';
-import { MyFormData } from './ContextForm';
+import type { FormState } from 'react-form-state-hooks/controlled/useFormState.types';
+import type { MyFormData } from './ContextForm';
 import PhoneEntry from './PhoneEntry';
-import { PhoneNumber } from './PhoneEntry.types';
+import type { PhoneNumber } from './PhoneEntry.types';
 
 const PhoneSection = (): React.ReactElement => {
 	const formState = (useContext(FormStateContext) as unknown) as FormState<MyFormData>;

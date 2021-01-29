@@ -1,5 +1,5 @@
-import React from 'react';
-import { IndexMapping, ListData, ListFormData } from '../../utils/listFormData.types';
+import type React from 'react';
+import type { IndexMapping, ListData, ListFormData } from '../../utils/listFormData.types';
 
 export enum ListActionType {
 	Init,

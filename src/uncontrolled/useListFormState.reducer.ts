@@ -4,12 +4,12 @@ import {
 	mapData,
 	removeFieldFromIndexMapping,
 } from '../utils/listFormData';
-import {
+import type {
 	InternalListFormState,
-	ListActionType,
 	ListFormStateAction,
 	UseListFormStateOptions,
 } from './useListFormState.types';
+import { ListActionType } from './useListFormState.types';
 
 export function init(options: UseListFormStateOptions): InternalListFormState {
 	const indexMap = createIndexMapping(options.name, options.initialData || []);

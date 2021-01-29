@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import type React from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import createOnChange from './createOnChange';
 import type { Data, FormState, UseFormStateOptions } from './useFormState.types';
 

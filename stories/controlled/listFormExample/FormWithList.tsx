@@ -31,7 +31,7 @@ const MyForm = ({ service = myService }: MyFormProps): React.ReactElement => {
 			lastName: '',
 		},
 	});
-	const onChange = useCallback(createOnChange(updateData), [updateData]);
+	const onChange = useCallback((event) => createOnChange(updateData)(event), [updateData]);
 
 	const onSubmit = (event: React.FormEvent) => {
 		event.preventDefault();

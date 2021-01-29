@@ -1,9 +1,10 @@
 import { Button } from '@material-ui/core';
 import React, { useContext } from 'react';
-import { ListFormState, ListMerge, useListFormState } from 'react-form-state-hooks/uncontrolled';
+import type { ListFormState, ListMerge } from 'react-form-state-hooks/uncontrolled';
+import { useListFormState } from 'react-form-state-hooks/uncontrolled';
 import { FormStateContext } from 'react-form-state-hooks/uncontrolled/context';
-import { FormState } from 'react-form-state-hooks/uncontrolled/useFormState.types';
-import { MyFormData } from './ContextForm';
+import type { FormState } from 'react-form-state-hooks/uncontrolled/useFormState.types';
+import type { MyFormData } from './ContextForm';
 import PhoneEntry from './PhoneEntry';
 
 const PhoneSection = (): React.ReactElement => {

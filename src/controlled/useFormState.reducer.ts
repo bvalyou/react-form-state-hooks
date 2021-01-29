@@ -1,4 +1,5 @@
-import { FormStateAction, FormStateActionType, InternalFormState } from './useFormState.types';
+import type { FormStateAction, InternalFormState } from './useFormState.types';
+import { FormStateActionType } from './useFormState.types';
 
 /**
  * Derives the next state using an action

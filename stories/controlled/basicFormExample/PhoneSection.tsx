@@ -16,7 +16,7 @@ const PhoneSection = ({
 		data: dataProp,
 		updateData: updateDataProp,
 	});
-	const onChange = useCallback(createOnChange(updateData), [updateData]);
+	const onChange = useCallback((event) => createOnChange(updateData)(event), [updateData]);
 
 	return (
 		<FormControl component="fieldset" classes={{ root: classes.fieldset }}>

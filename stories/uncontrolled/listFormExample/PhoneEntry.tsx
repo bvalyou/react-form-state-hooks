@@ -1,10 +1,11 @@
 import { Button, FormControl, FormLabel, Grid, TextField } from '@material-ui/core';
 import React, { useRef } from 'react';
-import { Merge, useFormState } from 'react-form-state-hooks/uncontrolled';
+import type { Merge } from 'react-form-state-hooks/uncontrolled';
+import { useFormState } from 'react-form-state-hooks/uncontrolled';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import phoneCountryCodes from '../basicFormExample/phoneCountryCodes';
-import { PhoneNumber } from './FormWithList.types';
-import { PhoneEntryProps } from './PhoneEntry.types';
+import type { PhoneNumber } from './FormWithList.types';
+import type { PhoneEntryProps } from './PhoneEntry.types';
 
 const PhoneEntry = ({
 	name,

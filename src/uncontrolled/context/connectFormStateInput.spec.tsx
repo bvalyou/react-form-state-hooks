@@ -1,9 +1,9 @@
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import useFormState from '../useFormState';
-import { FormState } from '../useFormState.types';
+import type { FormState } from '../useFormState.types';
 import useListFormState from '../useListFormState';
-import { ListFormState } from '../useListFormState.types';
+import type { ListFormState } from '../useListFormState.types';
 import connectFormStateInput from './connectFormStateInput';
 import FormStateContext from './FormStateContext';
 

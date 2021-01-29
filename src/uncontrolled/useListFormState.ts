@@ -1,17 +1,18 @@
-import { Dispatch, useEffect, useMemo, useReducer, useRef } from 'react';
+import type { Dispatch } from 'react';
+import { useEffect, useMemo, useReducer, useRef } from 'react';
 import { compareEntries, unmapData } from '../utils/listFormData';
-import { ListFormData } from '../utils/listFormData.types';
-import { FormState } from './useFormState.types';
+import type { ListFormData } from '../utils/listFormData.types';
+import type { FormState } from './useFormState.types';
 import { init, reducer } from './useListFormState.reducer';
-import {
+import type {
 	Entry,
 	InternalListFormState,
-	ListActionType,
 	ListFormState,
 	ListFormStateAction,
 	ListFormStateReducer,
 	UseListFormStateOptions,
 } from './useListFormState.types';
+import { ListActionType } from './useListFormState.types';
 
 export function isListFormState(
 	formState: FormState | ListFormState | null

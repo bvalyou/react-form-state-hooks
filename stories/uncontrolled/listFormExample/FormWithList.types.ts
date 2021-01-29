@@ -1,5 +1,5 @@
-import { Data } from 'react-form-state-hooks/uncontrolled';
-import { ListData } from 'react-form-state-hooks/utils/listFormData.types';
+import type { Data } from 'react-form-state-hooks/uncontrolled';
+import type { ListData } from 'react-form-state-hooks/utils/listFormData.types';
 
 export interface PhoneNumber {
 	countryCode?: string;

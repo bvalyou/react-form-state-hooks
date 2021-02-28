@@ -51,7 +51,7 @@ module.exports = {
 		{
 			files: ['./stories/**/*.*'],
 			rules: {
-				'react/prop-types': 'off',
+				// 'react/prop-types': 'off',
 			},
 		},
 	],

@@ -4,14 +4,7 @@ import { createOnChange, useFormState } from 'react-form-state-hooks/controlled'
 import useStyles from './BasicForm.styles';
 import myService from './myService';
 import PhoneSection from './PhoneSection';
-import type { PhoneNumber } from './PhoneSection.types';
-
-interface MyFormData {
-	firstName?: string;
-	lastName?: string;
-	isHuman?: boolean;
-	phoneNumber?: PhoneNumber;
-}
+import type { MyFormData } from './BasicForm.types';
 
 const MyForm = (): React.ReactElement => {
 	const classes = useStyles();

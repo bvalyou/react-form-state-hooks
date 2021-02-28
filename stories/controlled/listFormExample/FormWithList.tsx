@@ -2,26 +2,10 @@ import { Button, FormControlLabel, Grid, Switch, TextField } from '@material-ui/
 import React, { useCallback } from 'react';
 import { createOnChange, useFormState } from 'react-form-state-hooks/controlled';
 import type { ListData } from 'react-form-state-hooks/utils/listFormData.types';
-import type { Data } from 'react-form-state-hooks/controlled/useFormState.types';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import myService from '../basicFormExample/myService';
 import PhoneSection from './PhoneSection';
-
-export interface PhoneNumber {
-	countryCode?: string;
-	number?: string;
-}
-
-interface MyFormData {
-	firstName?: string;
-	lastName?: string;
-	isHuman?: boolean;
-	phoneNumber?: PhoneNumber[];
-}
-
-interface MyFormProps {
-	service: (data: Data) => void;
-}
+import type { MyFormData, MyFormProps, PhoneNumber } from './FormWithList.types';
 
 const MyForm = ({ service = myService }: MyFormProps): React.ReactElement => {
 	const classes = useStyles();
@@ -74,7 +58,7 @@ const MyForm = ({ service = myService }: MyFormProps): React.ReactElement => {
 				<Grid item sm={12}>
 					<PhoneSection
 						name="phoneNumber"
-						data={data.phoneNumber as ListData<Data>}
+						data={data.phoneNumber as ListData<PhoneNumber>}
 						updateData={updateData}
 					/>
 				</Grid>

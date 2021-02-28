@@ -7,7 +7,7 @@ import type { Data } from 'react-form-state-hooks/controlled/useFormState.types'
 import useStyles from '../basicFormExample/BasicForm.styles';
 import phoneCountryCodes from '../basicFormExample/phoneCountryCodes';
 import Input from './Input';
-import type { PhoneEntryProps } from './PhoneEntry.types';
+import type { PhoneEntryProps } from './ContextForm.types';
 
 const PhoneEntry = ({ name }: PhoneEntryProps): React.ReactElement => {
 	const formState = (useContext(FormStateContext) as unknown) as ListFormState;

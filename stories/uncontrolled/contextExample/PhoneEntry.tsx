@@ -4,11 +4,11 @@ import type { Merge } from 'react-form-state-hooks/uncontrolled';
 import { useFormState } from 'react-form-state-hooks/uncontrolled';
 import { FormStateContext } from 'react-form-state-hooks/uncontrolled/context';
 import type { Data } from 'react-form-state-hooks/uncontrolled/useFormState.types';
-import type { ListFormState } from 'react-form-state-hooks/uncontrolled/useListFormState.types';
+import type { ListFormState } from 'react-form-state-hooks/uncontrolled/list/useListFormState.types';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import phoneCountryCodes from '../basicFormExample/phoneCountryCodes';
 import Input from './Input';
-import type { PhoneEntryProps } from './PhoneEntry.types';
+import type { PhoneEntryProps } from './ContextForm.types';
 
 const PhoneEntry = ({ name }: PhoneEntryProps): React.ReactElement => {
 	const formState = (useContext(FormStateContext) as unknown) as ListFormState;

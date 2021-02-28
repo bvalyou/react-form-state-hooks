@@ -66,7 +66,6 @@ typings/
 # built files
 /dist
 /index.js
-/context.js
 /controlled
 /uncontrolled
 *.d.ts

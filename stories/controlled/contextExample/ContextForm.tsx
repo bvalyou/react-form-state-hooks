@@ -6,21 +6,14 @@ import type { FormState } from 'react-form-state-hooks/controlled/useFormState.t
 import useStyles from '../basicFormExample/BasicForm.styles';
 import myService from '../basicFormExample/myService';
 import Input from './Input';
-import type { PhoneNumber } from './PhoneEntry.types';
 import PhoneSection from './PhoneSection';
+import type { MyFormData } from './ContextForm.types';
 
 const onSubmit = ({ data }: FormState) => (event: React.FormEvent) => {
 	event.preventDefault();
 
 	myService(data);
 };
-
-export interface MyFormData {
-	firstName?: string;
-	lastName?: string;
-	isHuman?: boolean;
-	phoneNumber?: PhoneNumber[];
-}
 
 const ContextForm = (): React.ReactElement => {
 	const classes = useStyles();

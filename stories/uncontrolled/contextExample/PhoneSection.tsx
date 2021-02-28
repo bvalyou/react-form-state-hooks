@@ -4,7 +4,7 @@ import type { ListFormState, ListMerge } from 'react-form-state-hooks/uncontroll
 import { useListFormState } from 'react-form-state-hooks/uncontrolled';
 import { FormStateContext } from 'react-form-state-hooks/uncontrolled/context';
 import type { FormState } from 'react-form-state-hooks/uncontrolled/useFormState.types';
-import type { MyFormData } from './ContextForm';
+import type { MyFormData } from './ContextForm.types';
 import PhoneEntry from './PhoneEntry';
 
 const PhoneSection = (): React.ReactElement => {

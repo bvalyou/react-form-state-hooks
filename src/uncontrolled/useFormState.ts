@@ -24,11 +24,16 @@ function useFormState<T extends Data = Data>({
 		[mergeOption, nameOption]
 	);
 
-	const reset = useCallback<(nextState: T) => T>((nextState) => {
-		data.current = nextState;
+	const reset = useCallback<(nextState: T) => T>(
+		(nextState) => {
+			data.current = nextState;
 
-		return data.current;
-	}, []);
+			mergeOption?.(nameOption ? { [nameOption]: data.current } : data.current);
+
+			return data.current;
+		},
+		[mergeOption, nameOption]
+	);
 
 	const onChange = useCallback((event) => createOnChange(merge)(event), [merge]);
 

@@ -3,8 +3,7 @@ import React, { useCallback } from 'react';
 import { createOnChange, useFormState } from 'react-form-state-hooks/controlled';
 import useStyles from '../basicFormExample/BasicForm.styles';
 import phoneCountryCodes from '../basicFormExample/phoneCountryCodes';
-import type { PhoneNumber } from './FormWithList';
-import type { PhoneEntryProps } from './PhoneEntry.types';
+import type { PhoneEntryProps, PhoneNumber } from './FormWithList.types';
 
 const PhoneEntry = ({
 	name,

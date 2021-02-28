@@ -3,7 +3,7 @@ import {
 	createIndexMapping,
 	mapData,
 	removeFieldFromIndexMapping,
-} from '../utils/listFormData';
+} from '../../utils/listFormData';
 import type {
 	InternalListFormState,
 	ListFormStateAction,

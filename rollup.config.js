@@ -50,29 +50,6 @@ export default [
 		plugins: [dts()],
 	},
 	{
-		input: 'src/controlled/context/index.ts',
-		output: [
-			{
-				file: 'context.js',
-				format: 'cjs',
-			},
-			{
-				file: 'controlled/context.js',
-				format: 'cjs',
-			},
-		],
-		plugins,
-		external,
-	},
-	{
-		input: 'dist/src/controlled/context/index.d.ts',
-		output: {
-			file: 'controlled/context/index.d.ts',
-			format: 'es',
-		},
-		plugins: [dts()],
-	},
-	{
 		input: 'src/uncontrolled/index.ts',
 		output: {
 			file: 'uncontrolled/index.js',
@@ -85,23 +62,6 @@ export default [
 		input: 'dist/src/uncontrolled/index.d.ts',
 		output: {
 			file: 'uncontrolled/index.d.ts',
-			format: 'es',
-		},
-		plugins: [dts()],
-	},
-	{
-		input: 'src/uncontrolled/context/index.ts',
-		output: {
-			file: 'uncontrolled/context.js',
-			format: 'cjs',
-		},
-		plugins,
-		external,
-	},
-	{
-		input: 'dist/src/uncontrolled/context/index.d.ts',
-		output: {
-			file: 'uncontrolled/context.d.ts',
 			format: 'es',
 		},
 		plugins: [dts()],

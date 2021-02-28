@@ -1,23 +1,14 @@
 import type { ChangeEvent, Merge } from './useFormState.types';
-import type { ListMerge } from './useListFormState.types';
-
-/**
- * @module createOnChange
- */
-
-/**
- * @callback onChange - Handles a change to a HTML form control
- * @param {React.ChangeEvent} event - The triggered DOM event
- */
+import type { ListMerge } from './list/useListFormState.types';
+import type { OnChange } from './createOnChange.types';
 
 /**
  * Creates an onChange callback for an HTML input which is bound to the updateData callback
  * @param {Merge} merge - Handles a change to a field in the form state
- * @param {function} onChange - Pass-through of HTML event handler
- * @returns {onChange} Takes a change event and uses it to update the form state
- * @alias module:createOnChange
+ * @param {OnChange} onChange - Pass-through of HTML event handler
+ * @returns {OnChange} Takes a change event and uses it to update the form state
  */
-const createOnChange = (merge: Merge | ListMerge, onChange?: (event: ChangeEvent) => void) => (
+const createOnChange = (merge: Merge | ListMerge, onChange?: OnChange) => (
 	event: ChangeEvent
 ): void => {
 	const {

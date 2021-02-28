@@ -1,6 +1,6 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useRef } from 'react';
 import createOnChange from '../createOnChange';
-import { isListFormState } from '../useListFormState';
+import { isListFormState } from '../list/useListFormState';
 import type { InputComponent, InputProps } from './connectFormStateInput.types';
 import FormStateContext from './FormStateContext';
 
@@ -16,7 +16,7 @@ import FormStateContext from './FormStateContext';
  * @alias module:connectFormStateInput
  */
 function connectFormStateInput<P extends InputProps>(
-	InputComponent: React.ComponentType<InputProps> | string,
+	InputComponent: React.ComponentType<P> | string,
 	Context = FormStateContext
 ): InputComponent<P> {
 	function ConnectedInput(props: P) {
@@ -29,14 +29,14 @@ function connectFormStateInput<P extends InputProps>(
 		);
 
 		const data = isListFormState(formState) ? formState.getData().formData : formState?.getData?.();
-		const defaultValue = (data as Record<string, unknown>)?.[props.name] || '';
+		const initialValueRef = useRef((data as Record<string, unknown>)?.[props.name] || '');
 
 		const stateProps = formState
 			? props.type === 'checkbox' || props.type === 'radio'
 				? {
-						defaultChecked: Boolean(defaultValue),
+						defaultChecked: Boolean(initialValueRef.current),
 				  }
-				: { defaultValue }
+				: { defaultValue: initialValueRef.current }
 			: {};
 
 		return <InputComponent {...props} onChange={onChange} {...stateProps} />;

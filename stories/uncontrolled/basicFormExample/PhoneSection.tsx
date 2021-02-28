@@ -1,10 +1,10 @@
 import { FormControl, FormLabel, Grid, TextField } from '@material-ui/core';
 import React from 'react';
 import { useFormState } from 'react-form-state-hooks/uncontrolled';
-import type { PhoneNumber } from './BasicForm';
+import type { PhoneNumber } from './BasicForm.types';
 import useStyles from './BasicForm.styles';
 import phoneCountryCodes from './phoneCountryCodes';
-import type { PhoneSectionProps } from './PhoneSection.types';
+import type { PhoneSectionProps } from './BasicForm.types';
 
 const PhoneSection = ({
 	name,

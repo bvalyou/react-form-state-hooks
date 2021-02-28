@@ -4,18 +4,7 @@ import { useFormState } from 'react-form-state-hooks/uncontrolled';
 import useStyles from './BasicForm.styles';
 import myService from './myService';
 import PhoneSection from './PhoneSection';
-
-export interface PhoneNumber {
-	countryCode?: string;
-	number?: string;
-}
-
-interface MyFormData {
-	firstName?: string;
-	lastName?: string;
-	isHuman?: boolean;
-	phoneNumber?: PhoneNumber;
-}
+import type { MyFormData } from './BasicForm.types';
 
 const MyForm = (): React.ReactElement => {
 	const classes = useStyles();

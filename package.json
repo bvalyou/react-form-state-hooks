@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --coverage --collectCoverageFrom=src/**",
     "build": "shx rm -rf dist && tsc && rollup -c",
-    "lint": "eslint .",
+    "lint": "eslint . --ext ts,tsx,js,jsx",
     "storybook": "start-storybook -p 6006 --ci",
     "build-storybook": "build-storybook"
   },
@@ -24,9 +24,7 @@
   "peerDependencies": {
     "react": "*"
   },
-  "dependencies": {
-    "rollup-plugin-typescript2": "^0.29.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.9.5",

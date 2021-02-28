@@ -3,7 +3,7 @@ import React from 'react';
 import { useListFormState } from 'react-form-state-hooks/controlled';
 import type { Data } from 'react-form-state-hooks/controlled/useFormState.types';
 import PhoneEntry from './PhoneEntry';
-import type { PhoneSectionProps } from './PhoneSection.types';
+import type { PhoneSectionProps } from './FormWithList.types';
 
 const PhoneSection = ({
 	name,

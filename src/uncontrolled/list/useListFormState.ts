@@ -1,8 +1,8 @@
 import type { Dispatch } from 'react';
-import { useEffect, useMemo, useReducer, useRef } from 'react';
-import { compareEntries, unmapData } from '../utils/listFormData';
-import type { ListFormData } from '../utils/listFormData.types';
-import type { FormState } from './useFormState.types';
+import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
+import { compareEntries, unmapData } from '../../utils/listFormData';
+import type { ListFormData } from '../../utils/listFormData.types';
+import type { FormState } from '../useFormState.types';
 import { init, reducer } from './useListFormState.reducer';
 import type {
 	Entry,
@@ -13,6 +13,7 @@ import type {
 	UseListFormStateOptions,
 } from './useListFormState.types';
 import { ListActionType } from './useListFormState.types';
+import createOnChange from '../createOnChange';
 
 export function isListFormState(
 	formState: FormState | ListFormState | null
@@ -63,6 +64,19 @@ export default function useListFormState<T = unknown>(
 		}
 	}, [name, merge, indexMap, cause, initialFormData]);
 
+	const listMerge = useCallback(
+		(data) => {
+			formData.current = { ...formData.current, ...data };
+
+			if (name && merge) {
+				merge({ [name]: unmapData<T>(formData.current, indexMap) });
+			}
+
+			return formData.current;
+		},
+		[indexMap, merge, name]
+	);
+
 	return useMemo<ListFormState<T>>(
 		() => ({
 			entries: Object.entries<number>(indexMap)
@@ -84,21 +98,14 @@ export default function useListFormState<T = unknown>(
 				formData: formData.current,
 				data: unmapData<T>(formData.current, indexMap),
 			}),
-			merge: (data) => {
-				formData.current = { ...formData.current, ...data };
-
-				if (name && merge) {
-					merge({ [name]: unmapData<T>(formData.current, indexMap) });
-				}
-
-				return formData.current;
-			},
+			merge: listMerge,
 			reset: (data) => {
 				dispatch({ type: ListActionType.Reset, data });
 
 				return data || [];
 			},
+			onChange: createOnChange(listMerge),
 		}),
-		[indexMap, merge, name]
+		[indexMap, listMerge, name]
 	);
 }

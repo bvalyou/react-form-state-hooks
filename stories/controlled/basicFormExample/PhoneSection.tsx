@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { createOnChange, useFormState } from 'react-form-state-hooks/controlled';
 import useStyles from './BasicForm.styles';
 import phoneCountryCodes from './phoneCountryCodes';
-import type { PhoneNumber, PhoneSectionProps } from './PhoneSection.types';
+import type { PhoneNumber, PhoneSectionProps } from './BasicForm.types';
 
 const PhoneSection = ({
 	name,

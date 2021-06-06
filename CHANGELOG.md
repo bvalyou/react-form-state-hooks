@@ -1,3 +1,18 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [0.3.0](https://github.com/bvalyou/react-form-state-hooks/compare/v0.3.0-rc.1...v0.3.0) (2021-06-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* context utilities are now included in the root files - react-form-state-hooks/controlled/context and react-form-state-hooks/uncontrolled/context files are no longer available
+
+### Bug Fixes
+
+* cleans up build outputs and test coverage ([246e157](https://github.com/bvalyou/react-form-state-hooks/commit/246e157005cc4f54d70d11dbb3660b33d79d94e1))
+
 # [0.3.0-rc.1](https://github.com/bvalyou/react-form-state-hooks/compare/v0.3.0-rc.0...v0.3.0-rc.1) (2021-02-28)
 
 
@@ -38,6 +53,3 @@
 
 
 # 0.1.0-dev.1 (2020-04-16)
-
-
-

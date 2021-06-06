@@ -16,52 +16,47 @@ const external = Object.keys(pkg.peerDependencies).concat(Object.keys(pkg.depend
 
 export default [
 	{
-		input: 'src/index.ts',
-		output: {
-			file: 'index.js',
-			format: 'cjs',
-		},
+		input: 'src/controlled/index.ts',
+		output: [
+			{
+				file: 'controlled.js',
+				format: 'cjs',
+			},
+			{
+				file: 'index.js',
+				format: 'cjs',
+			},
+		],
 		plugins,
 		external,
-	},
-	{
-		input: 'dist/src/index.d.ts',
-		output: {
-			file: 'index.d.ts',
-			format: 'es',
-		},
-		plugins: [dts()],
 	},
 	{
 		input: 'src/controlled/index.ts',
-		output: {
-			file: 'controlled/index.js',
-			format: 'cjs',
-		},
-		plugins,
-		external,
-	},
-	{
-		input: 'dist/src/controlled/index.d.ts',
-		output: {
-			file: 'controlled/index.d.ts',
-			format: 'es',
-		},
+		output: [
+			{
+				file: 'controlled.d.ts',
+				format: 'es',
+			},
+			{
+				file: 'index.d.ts',
+				format: 'es',
+			},
+		],
 		plugins: [dts()],
 	},
 	{
 		input: 'src/uncontrolled/index.ts',
 		output: {
-			file: 'uncontrolled/index.js',
+			file: 'uncontrolled.js',
 			format: 'cjs',
 		},
 		plugins,
 		external,
 	},
 	{
-		input: 'dist/src/uncontrolled/index.d.ts',
+		input: 'src/uncontrolled/index.ts',
 		output: {
-			file: 'uncontrolled/index.d.ts',
+			file: 'uncontrolled.d.ts',
 			format: 'es',
 		},
 		plugins: [dts()],

@@ -9,11 +9,13 @@ import Input from './Input';
 import PhoneSection from './PhoneSection';
 import type { MyFormData } from './ContextForm.types';
 
-const onSubmit = ({ data }: FormState) => (event: React.FormEvent) => {
-	event.preventDefault();
+const onSubmit =
+	({ data }: FormState) =>
+	(event: React.FormEvent) => {
+		event.preventDefault();
 
-	myService(data);
-};
+		myService(data);
+	};
 
 const ContextForm = (): React.ReactElement => {
 	const classes = useStyles();
@@ -23,19 +25,19 @@ const ContextForm = (): React.ReactElement => {
 		<FormStateContext.Provider value={value}>
 			<form onSubmit={onSubmit(value)}>
 				<Grid container>
-					<Grid sm={12} md={6}>
+					<Grid item sm={12} md={6}>
 						<Input label="First Name" name="firstName" classes={{ root: classes.input }} />
 					</Grid>
 
-					<Grid sm={12} md={6}>
+					<Grid item sm={12} md={6}>
 						<Input label="Last Name" name="lastName" classes={{ root: classes.input }} />
 					</Grid>
 
-					<Grid sm={12}>
+					<Grid item sm={12}>
 						<PhoneSection />
 					</Grid>
 
-					<Grid sm={12}>
+					<Grid item sm={12}>
 						<Button type="submit">Send it!</Button>
 					</Grid>
 				</Grid>

@@ -13,7 +13,7 @@ const MyForm = (): React.ReactElement => {
 	return (
 		<form onSubmit={onSubmit}>
 			<Grid container>
-				<Grid sm={12} md={6}>
+				<Grid item sm={12} md={6}>
 					<TextField
 						label="First Name"
 						name="firstName"
@@ -22,21 +22,21 @@ const MyForm = (): React.ReactElement => {
 						classes={{ root: classes.input }}
 					/>
 				</Grid>
-				<Grid sm={12} md={6}>
+				<Grid item sm={12} md={6}>
 					<TextField
 						label="Last Name"
 						name="lastName"
-						value={getData().lastName}
+						defaultValue={getData().lastName}
 						onChange={onChange}
 						classes={{ root: classes.input }}
 					/>
 				</Grid>
 
-				<Grid sm={12}>
+				<Grid item sm={12}>
 					<PhoneSection name="phoneNumber" initialData={getData().phoneNumber} merge={merge} />
 				</Grid>
 
-				<Grid sm={12}>
+				<Grid item sm={12}>
 					<Button type="submit">Send it!</Button>
 				</Grid>
 			</Grid>

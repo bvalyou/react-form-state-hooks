@@ -8,7 +8,7 @@ import type { MyFormData } from './ContextForm.types';
 import PhoneEntry from './PhoneEntry';
 
 const PhoneSection = (): React.ReactElement => {
-	const formState = (useContext(FormStateContext) as unknown) as FormState<MyFormData>;
+	const formState = useContext(FormStateContext) as unknown as FormState<MyFormData>;
 	const listFormState = useListFormState({
 		name: 'phoneNumber',
 		initialData: formState.getData().phoneNumber,

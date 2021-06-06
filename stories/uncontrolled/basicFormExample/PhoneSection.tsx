@@ -23,7 +23,7 @@ const PhoneSection = ({
 			<FormLabel component="legend">Phone Number</FormLabel>
 
 			<Grid container>
-				<Grid sm={12} md={6}>
+				<Grid item sm={12} md={6}>
 					<TextField
 						select
 						label="Country Code"
@@ -40,7 +40,7 @@ const PhoneSection = ({
 					</TextField>
 				</Grid>
 
-				<Grid sm={12} md={6}>
+				<Grid item sm={12} md={6}>
 					<TextField
 						label="Number"
 						name="number"

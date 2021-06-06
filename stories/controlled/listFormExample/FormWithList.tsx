@@ -13,6 +13,8 @@ const MyForm = ({ service = myService }: MyFormProps): React.ReactElement => {
 		initialData: {
 			firstName: '',
 			lastName: '',
+			isHuman: false,
+			phoneNumber: [],
 		},
 	});
 	const onChange = useCallback((event) => createOnChange(updateData)(event), [updateData]);

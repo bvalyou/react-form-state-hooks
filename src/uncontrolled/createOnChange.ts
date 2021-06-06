@@ -8,21 +8,21 @@ import type { OnChange } from './createOnChange.types';
  * @param {OnChange} onChange - Pass-through of HTML event handler
  * @returns {OnChange} Takes a change event and uses it to update the form state
  */
-const createOnChange = (merge: Merge | ListMerge, onChange?: OnChange) => (
-	event: ChangeEvent
-): void => {
-	const {
-		target: { name, value, type },
-	} = event;
+function createOnChange(merge: Merge | ListMerge, onChange?: OnChange) {
+	return (event: ChangeEvent): void => {
+		const {
+			target: { name, value, type },
+		} = event;
 
-	onChange?.(event);
+		onChange?.(event);
 
-	if (type === 'radio' || type === 'checkbox') {
-		const { checked } = event.target as HTMLInputElement;
-		merge({ [name]: checked ? value || true : false });
-	} else {
-		merge({ [name]: value });
-	}
-};
+		if (type === 'radio' || type === 'checkbox') {
+			const { checked } = event.target as HTMLInputElement;
+			merge({ [name]: checked ? value || true : false });
+		} else {
+			merge({ [name]: value });
+		}
+	};
+}
 
 export default createOnChange;

@@ -59,17 +59,49 @@ describe('useFormState', () => {
 		});
 	});
 
-	it('should reset its data when reset is called', () => {
-		const { result } = renderHook(() =>
-			useFormState<Record<string, string>>({ initialData: { foo: 'bar' } })
-		);
+	describe('reset', () => {
+		it("should cause the context's data to reset", () => {
+			const { result } = renderHook(() =>
+				useFormState<Record<string, string>>({ initialData: { foo: 'bar' } })
+			);
 
-		const initialValue = result.current;
+			const initialValue = result.current;
 
-		result.current.reset({ bar: 'baz' });
+			result.current.reset({ bar: 'baz' });
 
-		expect(result.current).toBe(initialValue);
-		expect(result.current.getData()).toEqual({ bar: 'baz' });
+			expect(result.current).toBe(initialValue);
+			expect(result.current.getData()).toEqual({ bar: 'baz' });
+		});
+
+		it('should call merge when provided', () => {
+			const merge = jest.fn();
+			const { result } = renderHook(() =>
+				useFormState<Record<string, string>>({ initialData: { foo: 'bar' }, merge })
+			);
+
+			const initialValue = result.current;
+
+			result.current.reset({ bar: 'baz' });
+
+			expect(result.current).toBe(initialValue);
+			expect(result.current.getData()).toEqual({ bar: 'baz' });
+			expect(merge).toHaveBeenCalledWith({ bar: 'baz' });
+		});
+
+		it('should call merge prefixed with name when provided', () => {
+			const merge = jest.fn();
+			const { result } = renderHook(() =>
+				useFormState<Record<string, string>>({ initialData: { foo: 'bar' }, merge, name: 'foo' })
+			);
+
+			const initialValue = result.current;
+
+			result.current.reset({ bar: 'baz' });
+
+			expect(result.current).toBe(initialValue);
+			expect(result.current.getData()).toEqual({ bar: 'baz' });
+			expect(merge).toHaveBeenCalledWith({ foo: { bar: 'baz' } });
+		});
 	});
 
 	describe('onChange', () => {

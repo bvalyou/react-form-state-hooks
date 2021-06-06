@@ -16,19 +16,21 @@ import type { OnChange, UpdateData } from './useFormState.types';
  * @returns {onChange} Takes a change event and uses it to update the form state
  * @alias module:createOnChange
  */
-const createOnChange = (updateData: UpdateData, onChange?: OnChange): OnChange => (event) => {
-	const {
-		target: { name, value, type },
-	} = event;
+function createOnChange(updateData: UpdateData, onChange?: OnChange): OnChange {
+	return (event) => {
+		const {
+			target: { name, value, type },
+		} = event;
 
-	onChange?.(event);
+		onChange?.(event);
 
-	if (type === 'radio' || type === 'checkbox') {
-		const { checked } = event.target as HTMLInputElement;
-		updateData(name, checked ? value || true : false);
-	} else {
-		updateData(name, value);
-	}
-};
+		if (type === 'radio' || type === 'checkbox') {
+			const { checked } = event.target as HTMLInputElement;
+			updateData(name, checked ? value || true : false);
+		} else {
+			updateData(name, value);
+		}
+	};
+}
 
 export default createOnChange;

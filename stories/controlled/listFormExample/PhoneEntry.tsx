@@ -30,7 +30,7 @@ const PhoneEntry = ({
 						label="Country Code"
 						name="countryCode"
 						id={`${name}-countryCode`}
-						value={data.countryCode}
+						value={data.countryCode ?? ''}
 						onChange={onChange}
 						classes={{ root: classes.input }}
 					>
@@ -47,7 +47,7 @@ const PhoneEntry = ({
 						label="Number"
 						name="number"
 						id={`${name}-number`}
-						value={data.number}
+						value={data.number ?? ''}
 						onChange={onChange}
 						classes={{ root: classes.input }}
 					/>

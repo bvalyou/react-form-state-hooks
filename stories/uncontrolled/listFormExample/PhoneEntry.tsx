@@ -25,13 +25,13 @@ const PhoneEntry = ({
 			<FormLabel component="legend">Phone Number</FormLabel>
 
 			<Grid container>
-				<Grid sm={12} md={4}>
+				<Grid item sm={12} md={4}>
 					<TextField
 						select
 						label="Country Code"
 						name="countryCode"
 						id={`${name}-countryCode`}
-						value={getData().countryCode}
+						defaultValue={getData().countryCode ?? ''}
 						onChange={onChange}
 						classes={{ root: classes.input }}
 					>
@@ -43,19 +43,19 @@ const PhoneEntry = ({
 					</TextField>
 				</Grid>
 
-				<Grid sm={12} md={5}>
+				<Grid item sm={12} md={5}>
 					<TextField
 						label="Number"
 						name="number"
 						id={`${name}-number`}
-						value={getData().number}
+						defaultValue={getData().countryCode}
 						inputRef={numberInputRef}
 						onChange={onChange}
 						classes={{ root: classes.input }}
 					/>
 				</Grid>
 
-				<Grid sm={12} md={3}>
+				<Grid item sm={12} md={3}>
 					<Button type="button" onClick={() => removeEntry(name)}>
 						-
 					</Button>

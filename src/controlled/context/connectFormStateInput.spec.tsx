@@ -53,7 +53,7 @@ describe('connectFormStateInput', () => {
 
 		const { getByLabelText } = render(<MyForm />);
 
-		formValue = (formValue as unknown) as FormState;
+		formValue = formValue as unknown as FormState;
 
 		expect(formValue.data).toEqual({});
 
@@ -83,7 +83,7 @@ describe('connectFormStateInput', () => {
 
 		const { getByLabelText } = render(<MyForm />);
 
-		formValue = (formValue as unknown) as FormState;
+		formValue = formValue as unknown as FormState;
 
 		expect(formValue.data).toEqual(['']);
 
@@ -109,7 +109,7 @@ describe('connectFormStateInput', () => {
 
 		const { getByLabelText } = render(<MyForm />);
 
-		formValue = (formValue as unknown) as FormState;
+		formValue = formValue as unknown as FormState;
 
 		expect(formValue.data).toEqual({});
 

@@ -32,7 +32,7 @@ function connectFormStateInput<P extends InputProps>(
 			string,
 			unknown
 		>;
-		const value = data?.[props.name] || '';
+		const value = data?.[props.name] ?? '';
 		const stateProps = formState
 			? props.type === 'checkbox' || props.type === 'radio'
 				? {

@@ -11,7 +11,7 @@ import Input from './Input';
 import type { PhoneEntryProps } from './ContextForm.types';
 
 const PhoneEntry = ({ name }: PhoneEntryProps): React.ReactElement => {
-	const formState = (useContext(FormStateContext) as unknown) as ListFormState;
+	const formState = useContext(FormStateContext) as unknown as ListFormState;
 	const classes = useStyles();
 
 	return (
@@ -26,7 +26,7 @@ const PhoneEntry = ({ name }: PhoneEntryProps): React.ReactElement => {
 				<FormLabel component="legend">Phone Number</FormLabel>
 
 				<Grid container>
-					<Grid sm={12} md={4}>
+					<Grid item sm={12} md={4}>
 						<Input select label="Country Code" name="countryCode" classes={{ root: classes.input }}>
 							{phoneCountryCodes.map((option) => (
 								<option key={option} value={option}>
@@ -36,11 +36,11 @@ const PhoneEntry = ({ name }: PhoneEntryProps): React.ReactElement => {
 						</Input>
 					</Grid>
 
-					<Grid sm={12} md={5}>
+					<Grid item sm={12} md={5}>
 						<Input label="Number" name="number" classes={{ root: classes.input }} />
 					</Grid>
 
-					<Grid sm={12} md={3}>
+					<Grid item sm={12} md={3}>
 						<Button type="button" onClick={() => formState.removeEntry(name)}>
 							-
 						</Button>

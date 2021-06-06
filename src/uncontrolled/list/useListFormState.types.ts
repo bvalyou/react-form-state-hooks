@@ -1,5 +1,6 @@
 import type React from 'react';
 import type { IndexMapping, ListData, ListFormData } from '../../utils/listFormData.types';
+import type { Merge } from '../useFormState.types';
 
 export enum ListActionType {
 	Init,
@@ -38,7 +39,7 @@ export type ListFormStateReducer<T = unknown> = React.Reducer<
  */
 export interface UseListFormStateOptions<T = unknown> {
 	name?: string;
-	merge?: ListMerge;
+	merge?: ListMerge | Merge;
 	initialData?: ListData<T>;
 }
 

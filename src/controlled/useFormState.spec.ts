@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { useFormState } from '../index';
+import useFormState from './useFormState';
 import { reducer } from './useFormState.reducer';
 import type { Data } from './useFormState.types';
 import { FormStateActionType } from './useFormState.types';

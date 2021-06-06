@@ -10,10 +10,6 @@ import PhoneSection from './PhoneSection';
 const MyForm = ({ service = myService }: MyFormProps): React.ReactElement => {
 	const classes = useStyles();
 	const { getData, merge, onChange, onSubmit } = useFormState<MyFormData>({
-		initialData: {
-			firstName: '',
-			lastName: '',
-		},
 		submit: service,
 	});
 

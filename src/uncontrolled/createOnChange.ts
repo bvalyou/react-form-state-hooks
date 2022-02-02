@@ -16,6 +16,10 @@ function createOnChange(merge: Merge | ListMerge, onChange?: OnChange) {
 
 		onChange?.(event);
 
+		if (!name) {
+			throw new Error('name must be provided to use this change handler');
+		}
+
 		if (type === 'radio' || type === 'checkbox') {
 			const { checked } = event.target as HTMLInputElement;
 			merge({ [name]: checked ? value || true : false });

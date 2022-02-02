@@ -1,5 +1,8 @@
 /index.js
 /controlled/
 /uncontrolled/
+/controlled.js
+/index.js
+/uncontrolled.js
 /dist/
 *.d.ts

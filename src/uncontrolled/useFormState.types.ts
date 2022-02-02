@@ -7,8 +7,11 @@ export type GetData<T = Data> = () => T;
 export type Merge<T = Data> = (data: T | { [name: string]: T }) => T;
 export type Submit<T = Data> = (data: T) => void;
 export type Reset<T = Data> = (data: T) => T;
-type SupportedElements = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-export type ChangeEvent = React.ChangeEvent<SupportedElements>;
+export type ChangeEvent = React.ChangeEvent<{
+	name?: string;
+	value?: unknown;
+	type?: string;
+}>;
 
 export interface UseFormStateOptions<T = Data> {
 	initialData?: T;
